@@ -1,0 +1,1 @@
+### Archivo para dejar todas las funciones que se puedan reutilizar en todo el proyecto
