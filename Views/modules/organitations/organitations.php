@@ -3,7 +3,6 @@
 
         <div class="row m-3 d-flex justify-content-center">
             <div class="col-md-4 d-flex justify-content-center">
-
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
                     Crear
                 </button>
@@ -12,7 +11,7 @@
 
         <div class="row d-flex justify-content-center">
             <div class="col-md-10">
-                <table class="table table-light">
+                <table class="table table-light" id="table-organitations">
                     <thead class="thead-light">
                         <tr>
                             <th>#</th>
@@ -20,7 +19,7 @@
                             <th>Nombre</th>
                             <th>Tipo de Organización</th>
                             <th>Dirección</th>
-                            <th>Acciones</th>
+                            <th class="no-exportar">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,14 +54,38 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="mb-3 col-md-4">
-                        <label for="rutN" class="form-label">Rut</label>
+                    <div class="mb-3 col-md-3">
+                        <label for="rutN" class="form-label">E-Rut</label>
                         <input type="text" class="form-control" id="rutN" aria-describedby="emailHelp">
                     </div>
-                    <div class="mb-3 col-md-8">
+                    <div class="mb-3 col-md-6">
                         <label for="nombreN" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="nombreN">
                     </div>
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label" for="tipoOrganizacionN">Tipo de Organización</label>
+                        <select name="" id="tipoOrganizacionN" class="form-control">
+                            <option value="0">Seleccione una Tipo</option>
+                            <option value="tipoUno">tipo 1</option>
+                            <option value="tipoDos">tipo 2</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" for="calleN">Calle</label>
+                        <input type="text" class="form-control" id="calleN">
+                    </div>
+
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label" for="numeroN">Número</label>
+                        <input type="text" class="form-control" id="numeroN">
+                    </div>
+
+                    <div class="mb-3 col-md-5">
+                        <label class="form-label" for="referenciaN">Referencia</label>
+                        <input type="text" class="form-control" id="referenciaN">
+                    </div>
+
                     <div class="mb-3 col-md-4">
                         <label class="form-label" for="regionN">Región</label>
                         <select name="" id="regionN" class="form-control">
@@ -76,16 +99,16 @@
                         </select>
                     </div>
                     <div class="mb-3 col-md-4">
-                        <label class="form-label" for="Comuna">Comuna</label>
-                        <select name="" id="Comuna" class="form-control">
+                        <label class="form-label" for="comunaN">Comuna</label>
+                        <select name="" id="comunaN" class="form-control">
                             <option value="">Seleccione una Comuna</option>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnSaveOrganitation" class="btn btn-primary">Guardar</button>
             </div>
         </div>
     </div>
