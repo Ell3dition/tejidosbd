@@ -64,4 +64,20 @@ class OrganitationsM extends conexionBD
 
 
 
+    static function getOrganitationsM()
+    {
+        try {
+            $sql = "SELECT * FROM get_organitations";
+            $pdo = conexionBD::cBD()->prepare($sql);
+            $pdo->execute();
+            $listOrganitations = $pdo->fetchAll();
+            $pdo = null;
+            return ["state" => true, "data" => $listOrganitations];
+        } catch (PDOException $error) {
+            return ["state" => false, "data" => "Hubo un error al consultar los datos si el problema persiste contacte al administrador \ncodigo de error :" . $error->getMessage()];
+        }
+    }
+
+
+
 }

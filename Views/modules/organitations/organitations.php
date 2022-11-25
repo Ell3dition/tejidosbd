@@ -23,17 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>77777777</td>
-                            <td>Fundación Condorito</td>
-                            <td></td>
-                            <td>Cumpeo</td>
-                            <td>
-                                <button class="btn btn-sm btn-warning" type="button">Editar</button>
-                                <button class="btn btn-sm btn-danger" type="button">Eliminar</button>
-                            </td>
-                        </tr>
+
                     </tbody>
 
                 </table>

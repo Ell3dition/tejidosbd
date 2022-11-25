@@ -48,6 +48,14 @@ class OrganitationsC
 
     }
 
+    function getOrganitationsC (){
+
+        $response = OrganitationsM::getOrganitationsM();
+
+        echo json_encode($response);
+
+
+    }
 
 }
 
@@ -57,4 +65,7 @@ if ($_POST["action"] == "saveOrganitations") {
     $action = new OrganitationsC;
     $action->saveOrganitationsC();
 
-} 
+}elseif ($_POST["action"] == "getOrganitations") {
+    $action = new OrganitationsC;
+    $action->getOrganitationsC();
+}

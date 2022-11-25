@@ -1,4 +1,5 @@
 import { cleanDataTable, createDataTable, getComunas, getProvincias, getRegiones } from "../../helpers/funtions.js";
+import { editOrganitations } from "./editOrganitations.js";
 
 //VARIABLES
 const tableOrganitations = document.querySelector("#table-organitations");
@@ -14,11 +15,26 @@ const typeOrganitations = document.querySelector("#tipoOrganizacionN")
 const street = document.querySelector("#calleN")
 const number = document.querySelector("#numeroN")
 const reference = document.querySelector("#referenciaN")
-document.addEventListener('DOMContentLoaded', () => {
-    getOrganitations();
+
+
+document.addEventListener('DOMContentLoaded', async () => {
     getRegiones(selectRegion.id)
-    createTableOrganitations()
+    const data = await getOrganitations();
+    createTableOrganitations(data)
 })
+
+document.addEventListener('click', (event) => {
+
+    if(String(event.target.classList).includes('edit')){
+        
+
+        editOrganitations()
+
+    }
+
+
+})
+
 
 $(`input#${eRut.id}`).rut({
     formatOn: 'keyup',
@@ -27,17 +43,56 @@ $(`input#${eRut.id}`).rut({
 });
 
 
-const getOrganitations = () => {
-    console.log("Data obtenida")
+const getOrganitations = async () => {
+    try {
+        const url = "Controllers/organitations/organitationsC.php";
+        const response = await fetch(url, {
+            method: "POST",
+            body: new URLSearchParams({ action: 'getOrganitations' })
+        })
+        const listOrganitatios = await response.json()
+        if (!listOrganitatios.state) {
+            throw listOrganitatios.data
+        }
+        return listOrganitatios.data;
+    } catch (error) {
+        Swal.fire({
+            icon: "error",
+            title: "Opps!",
+            text: error,
+        })
+    }
 }
 
-const createTableOrganitations = () => {
-    // cleanDataTable(tableOrganitations.id)
+const createTableOrganitations = (data) => {
+    cleanDataTable(tableOrganitations.id)
+    const tbody = tableOrganitations.querySelector("tbody");
+    tbody.innerHTML = '';
+
+    const listTrs = []
+    data.forEach((organitation, index) => {
+        const tr = document.createElement('tr');
+
+        tr.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${organitation.erut}</td>
+        <td>${organitation.name}</td>
+        <td>${organitation.type}</td>
+        <td>${organitation.address}</td>
+        <td>
+            <button class="btn btn-sm btn-warning edit" data-id=${organitation.id} type="button">Editar</button>
+            <button class="btn btn-sm btn-danger delete" data-id=${organitation.id} type="button">Eliminar</button>
+        </td>
+        `;
+
+        listTrs.push(tr)
+
+    });
+    tbody.append(...listTrs)
     createDataTable(tableOrganitations.id)
 }
 
 btnSaveOrganitation.addEventListener('click', async () => {
-
     const dataSave = {
         eRut: eRut.value,
         nameOrganitations: nameOrganitations.value,
