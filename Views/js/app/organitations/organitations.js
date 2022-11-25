@@ -25,11 +25,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 document.addEventListener('click', (event) => {
 
-    if(String(event.target.classList).includes('edit')){
-        
-
-        editOrganitations()
-
+    if (String(event.target.classList).includes('edit')) {
+        const idOrganitation = event.target.dataset.id
+        editOrganitations(idOrganitation)
+    } else if (String(event.target.classList).includes('delete')) {
+        const idOrganitation = event.target.dataset.id
+        deleteOrganitation(idOrganitation)
     }
 
 
@@ -43,7 +44,7 @@ $(`input#${eRut.id}`).rut({
 });
 
 
-const getOrganitations = async () => {
+export const getOrganitations = async () => {
     try {
         const url = "Controllers/organitations/organitationsC.php";
         const response = await fetch(url, {
@@ -64,7 +65,7 @@ const getOrganitations = async () => {
     }
 }
 
-const createTableOrganitations = (data) => {
+export const createTableOrganitations = (data) => {
     cleanDataTable(tableOrganitations.id)
     const tbody = tableOrganitations.querySelector("tbody");
     tbody.innerHTML = '';
@@ -75,7 +76,7 @@ const createTableOrganitations = (data) => {
 
         tr.innerHTML = `
         <td>${index + 1}</td>
-        <td>${organitation.erut}</td>
+        <td>${ $.formatRut(organitation.erut)}</td>
         <td>${organitation.name}</td>
         <td>${organitation.type}</td>
         <td>${organitation.address}</td>
@@ -145,3 +146,12 @@ const cleanForm = () => {
 
 selectRegion.addEventListener('change', () => getProvincias(selectProvincia.id, selectRegion.value))
 selectProvincia.addEventListener('change', () => getComunas(selectComuna.id, selectProvincia.value))
+
+
+
+
+const deleteOrganitation = (idOrganitation) => {
+
+    console.log(idOrganitation)
+
+}
