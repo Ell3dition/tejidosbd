@@ -39,6 +39,9 @@ if (!isset($_SESSION)) {
             } else if ($_GET["url"] == "organitations") {
                 include "modules/organitations/" . $_GET["url"] . ".php";
 
+            } else if ($_GET["url"] == "partners") {
+                include "modules/partners/" . $_GET["url"] . ".php";
+
             }
 
 
@@ -92,10 +95,15 @@ if (!isset($_SESSION)) {
 
             } else if ($_GET["url"] == "organitations") {
 
-
                 echo '<script src="Views/js/app/organitations/' . $_GET["url"] . '.js" type="module"></script>';
 
+            } else if ($_GET["url"] == "partners") {
+
+                echo '<script src="Views/js/app/partners/' . $_GET["url"] . '.js" type="module"></script>';
+
             }
+
+
 
         }
     }
