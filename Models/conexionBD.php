@@ -13,7 +13,7 @@ class conexionBD
 
 
         try {
-            $bd = new PDO("mysql:host=$host:3306;dbname=$dbname", $user, $pass);
+            $bd = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
             $bd->exec("set names utf8");
             $bd->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
             $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -21,7 +21,7 @@ class conexionBD
             return $bd;
         } catch (PDOException $e) {
 
-            echo 'Fallo la conexion ' . $e->getMessage();
+            echo 'Fallo la conexion prueba...' . $e->getMessage();
         }
     }
 

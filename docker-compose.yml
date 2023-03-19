@@ -1,0 +1,9 @@
+version: "1.0"
+services:
+  web-tejidos:
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+
