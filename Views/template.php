@@ -81,6 +81,8 @@ if (!isset($_SESSION)) {
     <!-- Para los estilos en Excel     -->
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
 
+   
+
     <!--=========================Fin DATA TABLES==============================================-->
     <?php
 

@@ -1,4 +1,12 @@
-export { cleanDataTable, createDataTable, getRegiones, getProvincias, getComunas }
+export { 
+    cleanDataTable, 
+    createDataTable, 
+    getRegiones, 
+    getProvincias, 
+    getComunas, 
+    enableButtonAnimation, 
+    disableButtonAnimation
+}
 
 
 function cleanDataTable(idTabla) {
@@ -182,4 +190,30 @@ async function getComunas(idSelect,  idProvincia) {
 
     });
 
+}
+
+function enableButtonAnimation(btn, texto) {
+    const spanSpinner = document.createElement("SPAN");
+    spanSpinner.classList.add("spinner-grow", "spinner-grow-sm");
+    spanSpinner.setAttribute("role", "status");
+    spanSpinner.setAttribute("aria-hidden", "true");
+  
+    const spanText = document.createElement("SPAN");
+    spanText.textContent = ` ${texto}`;
+  
+    btn.textContent = "";
+    btn.appendChild(spanSpinner);
+    btn.appendChild(spanText);
+    btn.setAttribute("disabled", true);
+  }
+  
+function disableButtonAnimation(btn, texto, icon = false) {
+    btn.removeAttribute("disabled");
+    btn.textContent = texto;
+    if (icon) {
+      btn.textContent = "";
+      const i = document.createElement("i");
+      i.classList.add("fa", "fa-search");
+      btn.append(i, texto);
+    }
 }

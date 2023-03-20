@@ -1,13 +1,13 @@
-var onloadCallback = () => {
-  grecaptcha.render("html_element", {
-    sitekey: "6Lf-9F4dAAAAAJWdtKr6bbbcA22Zm5UCPCEvhbRk",
-    theme: "light",
-  });
-};
+import { disableButtonAnimation, enableButtonAnimation } from "../helpers/funtions.js";
 
 const formulario = document.querySelector("#formIngreso");
 formulario.addEventListener("submit", async function (e) {
   e.preventDefault();
+  const btnForm = e.submitter
+
+  console.log(btnForm)
+  enableButtonAnimation(btnForm, 'Validando...')
+
   const data = new FormData(formulario);
   data.append("accion", "ingresar");
   const response = await fetch("Controllers/loginC.php", {
@@ -17,9 +17,8 @@ formulario.addEventListener("submit", async function (e) {
 
   const { Estado, Motivo } = await response.json();
 
-  if (Estado) {
-    window.location = "home";
-  } else {
+  if (!Estado) {
+    disableButtonAnimation(btnForm, 'Ingresar')
     const { isConfirmed, isDenied, isDismissed } = await Swal.fire({
       icon: "error",
       title: "Oops...",
@@ -29,5 +28,7 @@ formulario.addEventListener("submit", async function (e) {
     if (isConfirmed || isDenied || isDismissed) {
       grecaptcha.reset();
     }
+    return
   }
+    window.location = "home";
 });

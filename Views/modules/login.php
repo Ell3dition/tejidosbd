@@ -24,7 +24,7 @@
 
                 </div>
                 <div class="form-group d-flex justify-content-center mb-2">
-                    <input type="submit" class="btnSubmit btn btn-lg btn-block" />
+                    <button type="submit" class="btnSubmit btn btn-lg btn-block" >Ingresar</button> 
                 </div>
 
             </form>
@@ -32,9 +32,17 @@
     </div>
 </div>
 
-<script src="Views/js/app/login.js"></script>
 <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer>
-</script>
+    </script>
+     <script>
+        var onloadCallback = () => {
+        grecaptcha.render("html_element", {
+             sitekey: "6Lf-9F4dAAAAAJWdtKr6bbbcA22Zm5UCPCEvhbRk",
+                theme: "light",
+        });
+};
+    </script>
+    <script src="Views/js/app/login.js" type="module"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
