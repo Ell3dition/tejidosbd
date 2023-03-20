@@ -6,6 +6,20 @@ class OrganitationsM extends conexionBD
 {
 
 
+    static function getOrganitationTypeM(){
+        try {
+            $sql = "SELECT id, tipoOrganizacion AS name FROM tj_tipoOrganizacion";
+            $pdo = conexionBD::cBD()->prepare($sql);
+            $pdo->execute();
+            $listOrganitationsType = $pdo->fetchAll();
+            $pdo = null;
+            return ["state" => true, "data" => $listOrganitationsType];
+        } catch (PDOException $error) {
+            return ["state" => false, "data" => "Hubo un error al consultar los datos si el problema persiste contacte al administrador \ncodigo de error :" . $error->getMessage()];
+        }
+
+    }
+
     static function saveOrganitationsM($dataSave)
     {
         $conection = conexionBD::cBD();

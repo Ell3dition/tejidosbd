@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     getRegiones(selectRegion.id)
     const data = await getOrganitations();
     createTableOrganitations(data)
+    getOrganitationsType()
 })
 
 document.addEventListener('click', (event) => {
@@ -155,3 +156,26 @@ const deleteOrganitation = (idOrganitation) => {
     console.log(idOrganitation)
 
 }
+
+const getOrganitationsType = async()=>{
+    const url = "Controllers/organitations/organitationsC.php";
+    const response = await fetch(url, {
+        method: "POST",
+        body: new URLSearchParams({ action: "getOrganitationsType" })
+    })
+    const listRegion = await response.json();
+
+    $(`#tipoOrganizacionN`).empty();
+    const select = document.querySelector(`#tipoOrganizacionN`);
+    const option = document.createElement("option");
+    option.value = "0";
+    option.text = "Seleccione un Tipo";
+    select.add(option);
+    listRegion.data.forEach((region) => {
+        const option = document.createElement("option");
+        option.value = region.id;
+        option.text = region.name;
+        select.add(option);
+    });
+}
+

@@ -6,6 +6,11 @@ require_once "../../Models/organitations/organitationsM.php";
 class OrganitationsC
 {
 
+    function getOrganitationTypeC(){
+        $response = OrganitationsM::getOrganitationTypeM();
+        echo json_encode($response);
+    }
+
     function saveOrganitationsC()
     {
 
@@ -131,5 +136,10 @@ if ($_POST["action"] == "saveOrganitations") {
 
     $action = new OrganitationsC;
     $action->editOrganitationC();
+
+}elseif ($_POST["action"] == "getOrganitationsType") {
+
+    $action = new OrganitationsC;
+    $action->getOrganitationTypeC();
 
 }

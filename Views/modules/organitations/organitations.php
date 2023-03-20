@@ -139,8 +139,6 @@
                         <label class="form-label" for="tipoOrganizacionN">Tipo de Organización</label>
                         <select name="" id="tipoOrganizacionN" class="form-control">
                             <option value="0">Seleccione una Tipo</option>
-                            <option value="tipoUno">tipo 1</option>
-                            <option value="tipoDos">tipo 2</option>
                         </select>
                     </div>
 
