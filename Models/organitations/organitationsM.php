@@ -67,7 +67,7 @@ class OrganitationsM extends conexionBD
     static function getOrganitationsM()
     {
         try {
-            $sql = "SELECT * FROM get_organitations";
+            $sql = "SELECT * FROM getOrganization";
             $pdo = conexionBD::cBD()->prepare($sql);
             $pdo->execute();
             $listOrganitations = $pdo->fetchAll();

@@ -58,7 +58,4 @@ class HelpersM extends conexionBD
 
     }
 
-
-
-
 }
