@@ -1,4 +1,4 @@
-import { cleanDataTable, createDataTable, getComunas, getProvincias, getRegiones } from "../../helpers/funtions.js";
+import { cleanDataTable, createDataTable, disableButtonAnimation, enableButtonAnimation, getComunas, getProvincias, getRegiones, handleErrorsMessage } from "../../helpers/funtions.js";
 import { editOrganitations } from "./editOrganitations.js";
 
 //VARIABLES
@@ -53,20 +53,23 @@ export const getOrganitations = async () => {
             body: new URLSearchParams({ action: 'getOrganitations' })
         })
         const listOrganitatios = await response.json()
+        console.log(listOrganitatios)
         if (!listOrganitatios.state) {
             throw listOrganitatios.data
         }
         return listOrganitatios.data;
     } catch (error) {
+        console.log(error)
         Swal.fire({
             icon: "error",
             title: "Opps!",
-            text: error,
+            text: 'Hubo un error al procesar la información si el problema persiste contacte al soporte',
         })
     }
 }
 
 export const createTableOrganitations = (data) => {
+    console.log(data)
     cleanDataTable(tableOrganitations.id)
     const tbody = tableOrganitations.querySelector("tbody");
     tbody.innerHTML = '';
@@ -79,11 +82,11 @@ export const createTableOrganitations = (data) => {
         <td>${index + 1}</td>
         <td>${ $.formatRut(organitation.erut)}</td>
         <td>${organitation.name}</td>
-        <td>${organitation.type}</td>
+        <td>${organitation.organizationType}</td>
         <td>${organitation.address}</td>
         <td>
-            <button class="btn btn-sm btn-warning edit" data-id=${organitation.id} type="button">Editar</button>
-            <button class="btn btn-sm btn-danger delete" data-id=${organitation.id} type="button">Eliminar</button>
+            <button class="btn btn-sm btn-warning edit" data-id=${organitation.organizationId} type="button">Editar</button>
+            <button class="btn btn-sm btn-danger delete" data-id=${organitation.organizationId} type="button">Eliminar</button>
         </td>
         `;
 
@@ -95,6 +98,17 @@ export const createTableOrganitations = (data) => {
 }
 
 btnSaveOrganitation.addEventListener('click', async () => {
+
+    if(!($.validateRut( eRut.value))){
+        Swal.fire({
+            icon: "error",
+            title: "Opps!",
+            text: "Debe ingresar un Rut válido",
+        })
+        return
+    }
+
+    enableButtonAnimation(btnSaveOrganitation, 'Espere...')
     const dataSave = {
         eRut: eRut.value,
         nameOrganitations: nameOrganitations.value,
@@ -114,19 +128,26 @@ btnSaveOrganitation.addEventListener('click', async () => {
         body: new URLSearchParams({ action: "saveOrganitations", data: JSON.stringify(dataSave) })
     })
 
-    const { state, data } = await response.json();
+    const data = await response.json();
 
-    if (state) {
-        cleanForm();
-        $("#createModal").modal('hide')
+    disableButtonAnimation(btnSaveOrganitation, 'Guardar')
+
+    if('errors' in data){
+        handleErrorsMessage(data.errors)
+        return
     }
 
+    if (data.state) {
+        cleanForm();
+        $("#createModal").modal('hide')
+        const data = await getOrganitations();
+        createTableOrganitations(data)
+    }
     Swal.fire({
-        icon: state ? "success" : "error",
-        title: state ? "Exito" : "Opps!",
-        text: data,
+        icon: data.state ? "success" : "error",
+        title: data.state ? "Exito" : "Opps!",
+        text: data.data,
     })
-
 })
 
 
@@ -151,9 +172,21 @@ selectProvincia.addEventListener('change', () => getComunas(selectComuna.id, sel
 
 
 
-const deleteOrganitation = (idOrganitation) => {
+const deleteOrganitation = async (idOrganitation) => {
 
-    console.log(idOrganitation)
+     
+const {isConfirmed, isDenied} = await Swal.fire({
+        title: '¿Seguro que desea eliminar esta organización?',
+        icon: 'info',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Si, Eliminar',
+        denyButtonText: `Nooo.`,
+      })
+
+if(!isConfirmed || isDenied ) return
+
+      //acion eliminar
 
 }
 
@@ -178,4 +211,6 @@ const getOrganitationsType = async()=>{
         select.add(option);
     });
 }
+
+
 

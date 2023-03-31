@@ -48,14 +48,14 @@ class OrganitationsM extends conexionBD
                 return array("state" => false, "data" => "Error al insertar la direccion");
             }
 
-            $sqlOrganitation = "INSERT INTO tj_organizacion (erut, erut_dv, nombre, tipo_organizacion, id_direccion_fk)
-            values(:erut, :dv, :nombre, :tipo, :direccion)";
+            $sqlOrganitation = "INSERT INTO tj_organizacion (erut, erut_dv, nombre, tipo_organizacion_fk, id_direccion_fk)
+            values(:erut, :dv, :nombre, :tipo_id, :direccion)";
 
             $pdo = $conection->prepare($sqlOrganitation);
             $pdo->bindParam(":erut", $dataSave['rutSave']);
             $pdo->bindParam(":dv", $dataSave['dv']);
             $pdo->bindParam(":nombre", $dataSave['nameOrganitations']);
-            $pdo->bindParam(":tipo", $dataSave['typeOrganitations']);
+            $pdo->bindParam(":tipo_id", $dataSave['typeOrganitations']);
             $pdo->bindParam(":direccion", $idDireccion);
 
             if ($pdo->execute()) {

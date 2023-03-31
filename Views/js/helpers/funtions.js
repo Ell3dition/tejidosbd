@@ -5,9 +5,21 @@ export {
     getProvincias, 
     getComunas, 
     enableButtonAnimation, 
-    disableButtonAnimation
+    disableButtonAnimation,
+    handleErrorsMessage
 }
 
+
+
+const handleErrorsMessage =(errors)=>{
+    const labelError = errors.map((errorMessage, index)=> `<li class="mb-1 "><strong>${index + 1}-. ${errorMessage.data}</strong></li>`).join('')
+    Swal.fire({
+        icon: "error",
+        title: "Opps!",
+        html:`<p>Por favor resuelva los siguientes errores</p>
+              <ul class="text-start" style="list-style:none;">${labelError}</ul>`
+    })
+}
 
 function cleanDataTable(idTabla) {
     let tabla = $("#" + idTabla).DataTable();
@@ -17,7 +29,6 @@ function cleanDataTable(idTabla) {
     }
 }
 
-//CREAR DATATABLE
 function createDataTable(idTabla, title, filename, page = 20, footer = false) {
     $("#" + idTabla).DataTable({
         paging: true,

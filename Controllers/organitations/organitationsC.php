@@ -1,7 +1,6 @@
 <?php
-
-
 require_once "../../Models/organitations/organitationsM.php";
+require_once "../helpers/validationsC.php";
 
 class OrganitationsC
 {
@@ -30,8 +29,6 @@ class OrganitationsC
         $rutSinPuntos = explode('.', $rut[0]);
         $rutSave = $rutSinPuntos[0] . $rutSinPuntos[1] . $rutSinPuntos[2];
 
-        /*PENDIENTE VALIDACIONES*/
-
         $dataSave = [
             "rutSave" => $rutSave,
             "dv" => $dv,
@@ -46,10 +43,69 @@ class OrganitationsC
         ];
 
 
-        $response = OrganitationsM::saveOrganitationsM($dataSave);
+        $errors = [];
+        foreach($dataSave as $key => $value){
+            switch($key){
+                case "rutSave":
+                    $error = ValidationsC::validateEmptyString($value, "Rut");
+                    if($error != null){
+                        $errors[] = $error;
+                    }
+                    break;
+                case "nameOrganitations":
+                    $error =  ValidationsC::validateEmptyString($value, "Nombre Organización");
+                     if($error != null){
+                        $errors[] = $error;
+                    }
+                    break;
+                case "typeOrganitations":
+                    $error = ValidationsC::validateSelection($value, "Tipo Organización");
+                     if($error != null){
+                        $errors[] = $error;
+                    }
+                    break;
+                case "street":
+                    $error = ValidationsC::validateEmptyString($value, "Calle");
+                     if($error != null){
+                        $errors[] = $error;
+                    }
+                    break;
+                case "number":
+                    $error =  ValidationsC::validateEmptyString($value, "Número");
+                     if($error != null){
+                        $errors[] = $error;
+                    }
+                    break;
+                case "idRegion":
+                    $error =  ValidationsC::validateSelection($value, "Región");
+                     if($error != null){
+                        $errors[] = $error;
+                    }
+                    break;
+                case "idProvincia":
+                    $error =   ValidationsC::validateSelection($value, "Provincia");
+                     if($error != null){
+                        $errors[] = $error;
+                    }
+                    break;
+                case "idComuna":
+                    $error = ValidationsC::validateSelection($value, "Comuna");
+                     if($error != null){
+                        $errors[] = $error;
+                    }
+                    break;
+            }
+        }
 
 
-        echo json_encode($response);
+      if(!empty($errors)){
+          echo json_encode(["errors"=>$errors]);
+          return;
+      }
+
+     $response = OrganitationsM::saveOrganitationsM($dataSave);
+     echo json_encode($response);
+
 
     }
 

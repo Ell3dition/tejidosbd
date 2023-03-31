@@ -40,7 +40,7 @@
     </div>
 </section>
 
-<!-- MODAL CREAR -->
+<!-- MODAL Editar -->
 
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -115,7 +115,7 @@
 </div>
 
 
-<!-- MODAL Editar -->
+<!-- MODAL Crear -->
 
 <!-- Modal -->
 <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
@@ -123,32 +123,36 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="createModalLabel">Crear Organización</h5>
+             
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-md-12 mb-3 d-flex justify-content-center">
+                    <span class="text-danger fw-bold">Campos obligatorios (*)</span> 
+                    </div>
                     <div class="mb-3 col-md-3">
-                        <label for="rutN" class="form-label">E-Rut</label>
+                        <label for="rutN" class="form-label">E-Rut <span class="text-danger fw-bold">(*)</span></label>
                         <input type="text" class="form-control" id="rutN">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label for="nombreN" class="form-label">Nombre</label>
+                        <label for="nombreN" class="form-label">Nombre <span class="text-danger fw-bold">(*)</span></label>
                         <input type="text" class="form-control" id="nombreN">
                     </div>
                     <div class="mb-3 col-md-3">
-                        <label class="form-label" for="tipoOrganizacionN">Tipo de Organización</label>
+                        <label class="form-label" for="tipoOrganizacionN">Tipo de Organización <span class="text-danger fw-bold">(*)</span></label>
                         <select name="" id="tipoOrganizacionN" class="form-control">
                             <option value="0">Seleccione una Tipo</option>
                         </select>
                     </div>
 
                     <div class="mb-3 col-md-4">
-                        <label class="form-label" for="calleN">Calle</label>
+                        <label class="form-label" for="calleN">Calle <span class="text-danger fw-bold">(*)</span></label>
                         <input type="text" class="form-control" id="calleN">
                     </div>
 
                     <div class="mb-3 col-md-3">
-                        <label class="form-label" for="numeroN">Número</label>
+                        <label class="form-label" for="numeroN">Número <span class="text-danger fw-bold">(*)</span></label>
                         <input type="text" class="form-control" id="numeroN">
                     </div>
 
@@ -158,19 +162,19 @@
                     </div>
 
                     <div class="mb-3 col-md-4">
-                        <label class="form-label" for="regionN">Región</label>
+                        <label class="form-label" for="regionN">Región <span class="text-danger fw-bold">(*)</span></label>
                         <select name="" id="regionN" class="form-control">
                             <option value="">Seleccione una Región</option>
                         </select>
                     </div>
                     <div class="mb-3 col-md-4">
-                        <label class="form-label" for="provinciaN">Provincia</label>
+                        <label class="form-label" for="provinciaN">Provincia <span class="text-danger fw-bold">(*)</span></label>
                         <select name="" id="provinciaN" class="form-control">
                             <option value="">Seleccione una Provincia</option>
                         </select>
                     </div>
                     <div class="mb-3 col-md-4">
-                        <label class="form-label" for="comunaN">Comuna</label>
+                        <label class="form-label" for="comunaN">Comuna <span class="text-danger fw-bold">(*)</span></label>
                         <select name="" id="comunaN" class="form-control">
                             <option value="">Seleccione una Comuna</option>
                         </select>
