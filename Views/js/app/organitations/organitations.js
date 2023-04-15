@@ -14,6 +14,7 @@ const selectComuna = document.querySelector("#comunaN")
 const selectRegionEd = document.querySelector("#regionEd")
 
 const eRut = document.querySelector("#rutN")
+const eRutEd = document.querySelector("#rutEd")
 
 const typeOrganitations = document.querySelector("#tipoOrganizacionN")
 const typeOrganitationsEd = document.querySelector("#tipoOrganizacionEd")
@@ -39,6 +40,12 @@ document.addEventListener('click', (event) => {
 
 
 $(`input#${eRut.id}`).rut({
+    formatOn: 'keyup',
+    minimumLength: 8, // validar largo mínimo; default: 2
+    validateOn: 'change' // si no se quiere validar, pasar null
+});
+
+$(`input#${eRutEd.id}`).rut({
     formatOn: 'keyup',
     minimumLength: 8, // validar largo mínimo; default: 2
     validateOn: 'change' // si no se quiere validar, pasar null

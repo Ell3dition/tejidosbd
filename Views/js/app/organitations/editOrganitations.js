@@ -1,3 +1,6 @@
+import { handleErrorsMessage } from "../../helpers/funtions.js";
+import { disableButtonAnimation } from "../../helpers/funtions.js";
+import { enableButtonAnimation } from "../../helpers/funtions.js";
 import { getComunas, getProvincias, getRegiones } from "../../helpers/funtions.js";
 import { createTableOrganitations, getOrganitations } from "./organitations.js";
 
@@ -17,9 +20,9 @@ const numberEd = document.querySelector("#numeroEd")
 const referenceEd = document.querySelector("#referenciaEd")
 
 
-const legalPersonalityNumber = document.querySelector("#personalidadJuridicaEd")
-const boardElectionDate = document.querySelector("#eleccionDirecctivaEd")
-const yearsValidityDirective = document.querySelector("#duracionDirectivaEd")
+const legalPersonalityNumberEd = document.querySelector("#personalidadJuridicaEd")
+const boardElectionDateEd = document.querySelector("#eleccionDirecctivaEd")
+const yearsValidityDirectiveEd = document.querySelector("#duracionDirectivaEd")
 
 export const editOrganitations = async (idOrganitations) => {
     const url = "Controllers/organitations/organitationsC.php";
@@ -54,9 +57,9 @@ export const editOrganitations = async (idOrganitations) => {
     numberEd.value = data.numero
     referenceEd.value = data.referencia
 
-    legalPersonalityNumber.value = data.legalPersonalityNumber
-    boardElectionDate.value = data.boardElectionDate
-    yearsValidityDirective.value = data.yearsValidityDirective
+    legalPersonalityNumberEd.value = data.legalPersonalityNumber
+    boardElectionDateEd.value = data.boardElectionDate
+    yearsValidityDirectiveEd.value = data.yearsValidityDirective
 
     $("#editModal").modal("show")
 
@@ -69,6 +72,18 @@ selectProvinciaEd.addEventListener('change', () => getComunas(selectComunaEd.id,
 
 
 btnEditOrganitation.addEventListener('click', async () => {
+
+    if(!($.validateRut( eRutEd.value))){
+        Swal.fire({
+            icon: "error",
+            title: "Opps!",
+            text: "Debe ingresar un Rut válido",
+        })
+        return
+    }
+
+    enableButtonAnimation(btnEditOrganitation, 'Espere...')
+
     const editData = {
         idAddress: idAddress.value,
         idOrganitation: idOrganitationsInput.value,
@@ -80,7 +95,10 @@ btnEditOrganitation.addEventListener('click', async () => {
         reference: referenceEd.value,
         idRegion: selectRegionEd.value,
         idProvincia: selectProvinciaEd.value,
-        idComuna: selectComunaEd.value
+        idComuna: selectComunaEd.value,
+        legalPersonalityNumber : legalPersonalityNumberEd.value,
+        boardElectionDate : boardElectionDateEd.value,
+        yearsValidityDirective : yearsValidityDirectiveEd.value
     }
 
 
@@ -90,9 +108,15 @@ btnEditOrganitation.addEventListener('click', async () => {
         body: new URLSearchParams({ action: "editOrganitation", data: JSON.stringify(editData) })
     })
 
-    const { state, data } = await response.json();
+    const data = await response.json();
+    disableButtonAnimation(btnEditOrganitation, 'Actualizar')
 
-    if (state) {
+    if('errors' in data){
+        handleErrorsMessage(data.errors)
+        return
+    }
+
+    if (data.state) {
         const data = await getOrganitations();
         createTableOrganitations(data)
         cleanFormEdit();
@@ -100,9 +124,9 @@ btnEditOrganitation.addEventListener('click', async () => {
     }
 
     Swal.fire({
-        icon: state ? "success" : "error",
-        title: state ? "Exito" : "Opps!",
-        text: data,
+        icon: data.state ? "success" : "error",
+        title: data.state ? "Exito" : "Opps!",
+        text: data.data,
     })
 
 })
@@ -119,7 +143,7 @@ const cleanFormEdit = () => {
     selectRegionEd.value = "0"
     selectProvinciaEd.value = "0"
     selectComunaEd.value = "0"
-    legalPersonalityNumber.value = "0"
-    boardElectionDate.value = "yyyy-MM-dd"
-    yearsValidityDirective.value = "0"
+    legalPersonalityNumberEd.value = "0"
+    boardElectionDateEd.value = "yyyy-MM-dd"
+    yearsValidityDirectiveEd.value = "0"
 }

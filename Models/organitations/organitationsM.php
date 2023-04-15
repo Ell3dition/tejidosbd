@@ -136,8 +136,7 @@ class OrganitationsM extends conexionBD
         try {
 
             $conection->beginTransaction();
-
-         
+       
 
             $sqlDireccion = "UPDATE tj_direccion SET calle = :calle, 
                             numero = :numero,
@@ -161,14 +160,22 @@ class OrganitationsM extends conexionBD
             $sqlOrganitation = "UPDATE tj_organizacion SET erut = :erut,
                                 erut_dv = :dv,
                                 nombre = :nombre,
-                                tipo_organizacion = :tipo
+                                tipo_organizacion_fk = :tipo,
+                                num_personalidad_juridica = :numeroJuridico, 
+                                fecha_eleccion_directiva = :eleccionDirectiva,
+                                years_duracion_directiva = :duracionDirectiva
                                 WHERE id = :idOrganitation";
 
             $pdo = $conection->prepare($sqlOrganitation);
-            $pdo->bindParam(":erut", $editaData['rutSave']);
-            $pdo->bindParam(":dv", $editaData['dv']);
-            $pdo->bindParam(":nombre", $editaData['nameOrganitations']);
-            $pdo->bindParam(":tipo", $editaData['typeOrganitations']);
+            $pdo->bindParam(":erut", $editaData['rutSave'], PDO::PARAM_INT);
+            $pdo->bindParam(":dv", $editaData['dv'], PDO::PARAM_STR );
+            $pdo->bindParam(":nombre", $editaData['nameOrganitations'], PDO::PARAM_STR );
+            $pdo->bindParam(":tipo", $editaData['typeOrganitations'], PDO::PARAM_INT );
+
+            $pdo->bindParam(":numeroJuridico", $editaData['legalPersonalityNumber'], PDO::PARAM_STR );
+            $pdo->bindParam(":eleccionDirectiva", $editaData['boardElectionDate'], PDO::PARAM_STR );
+            $pdo->bindParam(":duracionDirectiva", $editaData['yearsValidityDirective'], PDO::PARAM_STR );            
+
             $pdo->bindParam(":idOrganitation", $editaData['idOrganitation']);
 
             $pdo->execute();
