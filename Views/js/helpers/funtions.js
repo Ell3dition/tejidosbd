@@ -128,7 +128,7 @@ function createDataTable(idTabla, title, filename, page = 20, footer = false) {
 }
 
 
-async function getRegiones(idSelect) {
+async function getRegiones(idSelects) {
     const url = "Controllers/helpers/functionsC.php";
     const response = await fetch(url, {
         method: "POST",
@@ -136,20 +136,22 @@ async function getRegiones(idSelect) {
     })
     const listRegion = await response.json();
 
-    $(`#${idSelect}`).empty();
-    const select = document.querySelector(`#${idSelect}`);
-    const option = document.createElement("option");
-    option.value = "0";
-    option.text = "Selecciones una Región";
-    select.add(option);
-    listRegion.data.forEach((region) => {
+    idSelects.forEach((idSelect)=>{
 
+        $(`#${idSelect}`).empty();
+        const select = document.querySelector(`#${idSelect}`);
         const option = document.createElement("option");
-        option.value = region.id;
-        option.text = region.name;
+        option.value = "0";
+        option.text = "Seleccione una Región";
         select.add(option);
+        listRegion.data.forEach((region) => {
+            const option = document.createElement("option");
+            option.value = region.id;
+            option.text = region.name;
+            select.add(option);
+        });
 
-    });
+    })
 
 }
 

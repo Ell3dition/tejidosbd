@@ -99,10 +99,20 @@ class OrganitationsM extends conexionBD
     static function getOrganitationM($idOrganitation)
     {
         try {
-            $sql = "SELECT o.id as idOrganizacion, concat(o.erut, '-', o.erut_dv) as rut, o.nombre , o.tipo_organizacion as type, 
-                   d.id as idAddress,  d.calle, d.numero, d.referencia, d.region_fk, d.provincia_fk, d.comuna_fk  FROM tj_organizacion as o 
-                   inner join tj_direccion as d on d.id = o.id_direccion_fk
-                   where o.id = :idOrganizacion";
+            $sql = "SELECT o.id as idOrganizacion, 
+                    concat(o.erut, '-', o.erut_dv) as rut,
+                    o.nombre , 
+                    o.tipo_organizacion_fk,
+                    d.id as idAddress,
+                    d.calle,
+                    d.numero,
+                    d.referencia,
+                    d.region_fk,
+                    d.provincia_fk,
+                    d.comuna_fk
+                    FROM tj_organizacion as o 
+                    inner join tj_direccion as d on d.id = o.id_direccion_fk
+                    where o.id = :idOrganizacion";
             $pdo = conexionBD::cBD()->prepare($sql);
             $pdo->bindParam(":idOrganizacion", $idOrganitation, PDO::PARAM_STR);
             $pdo->execute();

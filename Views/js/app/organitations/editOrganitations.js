@@ -18,9 +18,7 @@ const referenceEd = document.querySelector("#referenciaEd")
 
 
 export const editOrganitations = async (idOrganitations) => {
-
-    await getRegiones(selectRegionEd.id)
-
+    console.log(idOrganitations)
 
     const url = "Controllers/organitations/organitationsC.php";
     const response = await fetch(url, {

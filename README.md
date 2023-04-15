@@ -3,7 +3,9 @@
 
 ## Inicio  🚀  
 El proyecto tiene configurado el archivo **docker-compose.yml**. 
-se debe ejecutar el compando **docker compose up** para iniciar el contendor. 
+se debe ejecutar el compando **docker compose up** para crear el contendor. 
 
-para ejecutar el contenedor ** docker container start "id contenedor" **
+listar todos los contenedores **docker container ls -a**
+
+para ejecutar el contenedor **docker container start "id contenedor"**
 
