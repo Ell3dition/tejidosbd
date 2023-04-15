@@ -24,44 +24,50 @@ const legalPersonalityNumberEd = document.querySelector("#personalidadJuridicaEd
 const boardElectionDateEd = document.querySelector("#eleccionDirecctivaEd")
 const yearsValidityDirectiveEd = document.querySelector("#duracionDirectivaEd")
 
-export const editOrganitations = async (idOrganitations) => {
-    const url = "Controllers/organitations/organitationsC.php";
-    const response = await fetch(url, {
-        method: "POST",
-        body: new URLSearchParams({ action: 'getOrganitation', idOrganitations })
-    })
+export const editOrganitations = async (idOrganitations, buttonEdit) => {
 
-    const organitation = await response.json();
+    try {
+        enableButtonAnimation(buttonEdit, 'Cargando...')
 
-    if (!organitation.state) {
-        throw organitation.data
+        const url = "Controllers/organitations/organitationsC.php";
+        const response = await fetch(url, {
+            method: "POST",
+            body: new URLSearchParams({ action: 'getOrganitation', idOrganitations })
+        })
+    
+        const organitation = await response.json();
+    
+        if (!organitation.state) {
+            throw organitation.data
+        
+        }
+        const data = organitation.data
 
+        await getProvincias(selectProvinciaEd.id, data.region_fk)
+        await getComunas(selectComunaEd.id, data.provincia_fk)
+    
+        selectRegionEd.value = data.region_fk
+        selectProvinciaEd.value = data.provincia_fk
+        selectComunaEd.value = data.comuna_fk
+    
+        idOrganitationsInput.value = data.idOrganizacion
+        idAddress.value = data.idAddress
+        eRutEd.value = $.formatRut(data.rut)
+        nameOrganitationsEd.value = data.nombre
+        typeOrganitationsEd.value = data.typeOrganitationId
+        streetEd.value = data.calle
+        numberEd.value = data.numero
+        referenceEd.value = data.referencia
+    
+        legalPersonalityNumberEd.value = data.legalPersonalityNumber
+        boardElectionDateEd.value = data.boardElectionDate
+        yearsValidityDirectiveEd.value = data.yearsValidityDirective
+        disableButtonAnimation(buttonEdit, 'Editar')
+        $("#editModal").modal("show")
+    } catch (error) {
+        console.error(error)
+        disableButtonAnimation(buttonEdit, 'Editar')
     }
-    const data = organitation.data
-
-    console.log(data)
-
-    await getProvincias(selectProvinciaEd.id, data.region_fk)
-    await getComunas(selectComunaEd.id, data.provincia_fk)
-
-    selectRegionEd.value = data.region_fk
-    selectProvinciaEd.value = data.provincia_fk
-    selectComunaEd.value = data.comuna_fk
-
-    idOrganitationsInput.value = data.idOrganizacion
-    idAddress.value = data.idAddress
-    eRutEd.value = $.formatRut(data.rut)
-    nameOrganitationsEd.value = data.nombre
-    typeOrganitationsEd.value = data.typeOrganitationId
-    streetEd.value = data.calle
-    numberEd.value = data.numero
-    referenceEd.value = data.referencia
-
-    legalPersonalityNumberEd.value = data.legalPersonalityNumber
-    boardElectionDateEd.value = data.boardElectionDate
-    yearsValidityDirectiveEd.value = data.yearsValidityDirective
-
-    $("#editModal").modal("show")
 
 }
 

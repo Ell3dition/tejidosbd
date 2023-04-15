@@ -24,7 +24,10 @@
                         <tr>
                             <th>#</th>
                             <th>Rut</th>
+                            <th>N° Personalidad Jurídica</th>
                             <th>Nombre</th>
+                            <th>Fecha Eleccion Direcctiva</th>
+                            <th>Años Duración Directiva</th>
                             <th>Tipo</th>
                             <th>Dirección</th>
                             <th class="no-exportar">Acciones</th>

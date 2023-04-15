@@ -280,6 +280,12 @@ class OrganitationsC
 
     }
 
+    function deleteOrganitationsC(){
+
+        $idOrganitation = $_POST["idOrganitation"];
+        $response = OrganitationsM::deleteOrganitationsM($idOrganitation);
+        echo json_encode($response);
+    }
 
 }
 
@@ -309,4 +315,10 @@ if ($_POST["action"] == "saveOrganitations") {
     $action = new OrganitationsC;
     $action->getOrganitationTypeC();
 
+}elseif ($_POST["action"] == "deleteOrganitation") {
+
+    $action = new OrganitationsC;
+    $action->deleteOrganitationsC();
+
 }
+

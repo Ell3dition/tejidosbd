@@ -84,7 +84,7 @@ class OrganitationsM extends conexionBD
     static function getOrganitationsM()
     {
         try {
-            $sql = "SELECT * FROM getOrganization";
+            $sql = "SELECT * FROM getOrganization WHERE state = 'Habilitada'";
             $pdo = conexionBD::cBD()->prepare($sql);
             $pdo->execute();
             $listOrganitations = $pdo->fetchAll();
@@ -191,6 +191,23 @@ class OrganitationsM extends conexionBD
 
     }
 
+    static function deleteOrganitationsM($idOrganitation)
+    {
+        $newState = 'Deshabilitada';
+        try {
+            $sql = "UPDATE tj_organizacion SET estado = :estado WHERE id = :id";
+            $pdo = conexionBD::cBD()->prepare($sql);
+            $pdo->bindParam(":estado", $newState , PDO::PARAM_STR);
+            $pdo->bindParam(":id", $idOrganitation, PDO::PARAM_INT);
+            if($pdo->execute()){
+                $pdo = null;
+                return ["state" => true, "data" => "Organización eliminada satisfactoriamente"];
+            }
 
+            return ["state" => false, "data" => 'Error, al eliminar organización por favor reporte al soporte'];
+        } catch (PDOException $error) {
+            return ["state" => false, "data" => "Hubo un error al procesar la solicitud si el problema persiste contacte al administrador \ncodigo de error :" . $error->getMessage()];
+        }
+    }
 
 }

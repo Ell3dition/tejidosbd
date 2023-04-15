@@ -31,10 +31,10 @@ document.addEventListener('DOMContentLoaded',initModule)
 document.addEventListener('click', (event) => {
     if (String(event.target.classList).includes('edit')) {
         const idOrganitation = event.target.dataset.id
-        editOrganitations(idOrganitation)
+        editOrganitations(idOrganitation , event.target)
     } else if (String(event.target.classList).includes('delete')) {
         const idOrganitation = event.target.dataset.id
-        deleteOrganitation(idOrganitation)
+        deleteOrganitation(idOrganitation , event.target)
     }
 })
 
@@ -86,11 +86,14 @@ export const createTableOrganitations = (data) => {
         tr.innerHTML = `
         <td>${index + 1}</td>
         <td>${ $.formatRut(organitation.erut)}</td>
+        <td>${organitation.legalPersonalityNumber}</td>
         <td>${organitation.name}</td>
+        <td>${organitation.boardElectionDate}</td>
+        <td>${organitation.yearsValidityDirective}</td>
         <td>${organitation.organizationType}</td>
         <td>${organitation.address}</td>
         <td>
-            <button class="btn btn-sm btn-warning edit" data-id=${organitation.organizationId} type="button">Editar</button>
+            <button class="btn btn-sm btn-warning edit mb-1" data-id=${organitation.organizationId} type="button">Editar</button>
             <button class="btn btn-sm btn-danger delete" data-id=${organitation.organizationId} type="button">Eliminar</button>
         </td>
         `;
