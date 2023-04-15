@@ -34,12 +34,12 @@ class OrganitationsM extends conexionBD
                             values (:calle, :numero, :referencia, :region, :provincia, :comuna)";
 
             $pdo = $conection->prepare($sqlDireccion);
-            $pdo->bindParam(":calle", $dataSave['street']);
-            $pdo->bindParam(":numero", $dataSave['number']);
-            $pdo->bindParam(":referencia", $dataSave['reference']);
-            $pdo->bindParam(":region", $dataSave['idRegion']);
-            $pdo->bindParam(":provincia", $dataSave['idProvincia']);
-            $pdo->bindParam(":comuna", $dataSave['idComuna']);
+            $pdo->bindParam(":calle", $dataSave['street'], PDO::PARAM_STR );
+            $pdo->bindParam(":numero", $dataSave['number'], PDO::PARAM_STR );
+            $pdo->bindParam(":referencia", $dataSave['reference'], PDO::PARAM_STR );
+            $pdo->bindParam(":region", $dataSave['idRegion'], PDO::PARAM_INT );
+            $pdo->bindParam(":provincia", $dataSave['idProvincia'], PDO::PARAM_INT );
+            $pdo->bindParam(":comuna", $dataSave['idComuna'], PDO::PARAM_INT );
             $pdo->execute();
             $idDireccion = $conection->lastInsertId();
 
@@ -48,15 +48,18 @@ class OrganitationsM extends conexionBD
                 return array("state" => false, "data" => "Error al insertar la direccion");
             }
 
-            $sqlOrganitation = "INSERT INTO tj_organizacion (erut, erut_dv, nombre, tipo_organizacion_fk, id_direccion_fk)
-            values(:erut, :dv, :nombre, :tipo_id, :direccion)";
+            $sqlOrganitation = "INSERT INTO tj_organizacion (erut, erut_dv, nombre, tipo_organizacion_fk, id_direccion_fk, num_personalidad_juridica, fecha_eleccion_directiva, years_duracion_directiva)
+            values(:erut, :dv, :nombre, :tipo_id, :direccion, :num_personalidad_juridica, :fecha_eleccion_directiva, :years_duracion_directiva)";
 
             $pdo = $conection->prepare($sqlOrganitation);
-            $pdo->bindParam(":erut", $dataSave['rutSave']);
-            $pdo->bindParam(":dv", $dataSave['dv']);
-            $pdo->bindParam(":nombre", $dataSave['nameOrganitations']);
-            $pdo->bindParam(":tipo_id", $dataSave['typeOrganitations']);
-            $pdo->bindParam(":direccion", $idDireccion);
+            $pdo->bindParam(":erut", $dataSave['rutSave'], PDO::PARAM_INT);
+            $pdo->bindParam(":dv", $dataSave['dv'], PDO::PARAM_STR );
+            $pdo->bindParam(":nombre", $dataSave['nameOrganitations'], PDO::PARAM_STR );
+            $pdo->bindParam(":tipo_id", $dataSave['typeOrganitations'], PDO::PARAM_INT );
+            $pdo->bindParam(":direccion", $idDireccion, PDO::PARAM_INT );
+            $pdo->bindParam(":num_personalidad_juridica", $dataSave['legalPersonalityNumber'], PDO::PARAM_STR );
+            $pdo->bindParam(":fecha_eleccion_directiva", $dataSave['boardElectionDate'], PDO::PARAM_STR );
+            $pdo->bindParam(":years_duracion_directiva", $dataSave['yearsValidityDirective'], PDO::PARAM_STR );
 
             if ($pdo->execute()) {
                 $conection->commit();

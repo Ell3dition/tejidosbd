@@ -135,15 +135,28 @@
                         <label for="rutN" class="form-label">E-Rut <span class="text-danger fw-bold">(*)</span></label>
                         <input type="text" class="form-control" id="rutN">
                     </div>
+                    <div class="mb-3 col-md-3">
+                        <label for="rutN" class="form-label">N° Personalidad jurídica <span class="text-danger fw-bold">(*)</span></label>
+                        <input type="text" class="form-control" id="personalidadJuridicaN">
+                    </div>
                     <div class="mb-3 col-md-6">
                         <label for="nombreN" class="form-label">Nombre <span class="text-danger fw-bold">(*)</span></label>
                         <input type="text" class="form-control" id="nombreN">
                     </div>
-                    <div class="mb-3 col-md-3">
+                    <div class="mb-3 col-md-4">
                         <label class="form-label" for="tipoOrganizacionN">Tipo de Organización <span class="text-danger fw-bold">(*)</span></label>
                         <select name="" id="tipoOrganizacionN" class="form-control">
                             <option value="0">Seleccione una Tipo</option>
                         </select>
+                    </div>
+
+                    <div class="mb-3 col-md-3">
+                        <label for="eleccionDirecctivaN" class="form-label"> Fecha Elección Directiva <span class="text-danger fw-bold">(*)</span></label>
+                        <input type="date"  class="form-control" id="eleccionDirecctivaN">
+                    </div>
+                    <div class="mb-3 col-md-3">
+                        <label for="duracionDirectivaN" class="form-label"> Años Duración Directiva <span class="text-danger fw-bold">(*)</span></label>
+                        <input type="number" class="form-control" id="duracionDirectivaN">
                     </div>
 
                     <div class="mb-3 col-md-4">

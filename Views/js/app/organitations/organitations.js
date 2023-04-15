@@ -17,6 +17,11 @@ const number = document.querySelector("#numeroN")
 const reference = document.querySelector("#referenciaN")
 
 
+const legalPersonalityNumber = document.querySelector("#personalidadJuridicaN")
+const boardElectionDate = document.querySelector("#eleccionDirecctivaN")
+const yearsValidityDirective = document.querySelector("#duracionDirectivaN")
+
+
 document.addEventListener('DOMContentLoaded', async () => {
     getRegiones(selectRegion.id)
     const data = await getOrganitations();
@@ -118,8 +123,10 @@ btnSaveOrganitation.addEventListener('click', async () => {
         reference: reference.value,
         idRegion: selectRegion.value,
         idProvincia: selectProvincia.value,
-        idComuna: selectComuna.value
-
+        idComuna: selectComuna.value,
+        legalPersonalityNumber : legalPersonalityNumber.value,
+        boardElectionDate : boardElectionDate.value,
+        yearsValidityDirective : yearsValidityDirective.value
     }
 
     const url = "Controllers/organitations/organitationsC.php";

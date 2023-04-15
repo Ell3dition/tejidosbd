@@ -24,6 +24,10 @@ class OrganitationsC
         $idProvincia = $_data["idProvincia"];
         $idComuna = $_data["idComuna"];
 
+        $legalPersonalityNumber  = $_data["legalPersonalityNumber"];
+        $boardElectionDate  = $_data["boardElectionDate"];
+        $yearsValidityDirective  = $_data["yearsValidityDirective"];
+
         $rut = explode('-', $eRut);
         $dv = $rut[1];
         $rutSinPuntos = explode('.', $rut[0]);
@@ -40,9 +44,12 @@ class OrganitationsC
             "idRegion" => $idRegion,
             "idProvincia" => $idProvincia,
             "idComuna" => $idComuna,
+            "legalPersonalityNumber" => $legalPersonalityNumber,
+            "boardElectionDate" => $boardElectionDate,
+            "yearsValidityDirective" => $yearsValidityDirective,
         ];
 
-
+        //VALIDACIONES
         $errors = [];
         foreach($dataSave as $key => $value){
             switch($key){
@@ -91,6 +98,26 @@ class OrganitationsC
                 case "idComuna":
                     $error = ValidationsC::validateSelection($value, "Comuna");
                      if($error != null){
+                        $errors[] = $error;
+                    }
+                    break;
+
+                case "legalPersonalityNumber":
+                    $error = ValidationsC::validateEmptyString($value, "N° de personalidad jurídica");
+                    if($error != null){
+                        $errors[] = $error;
+                    }
+                    break;
+                
+                case "boardElectionDate":
+                    $error = ValidationsC::validateEmptyString($value, "Fecha elección directiva");
+                    if($error != null){
+                        $errors[] = $error;
+                    }
+                    break;
+                case "yearsValidityDirective":
+                    $error = ValidationsC::validateEmptyString($value, "Años duración directiva");
+                    if($error != null){
                         $errors[] = $error;
                     }
                     break;
@@ -172,7 +199,7 @@ class OrganitationsC
 
 }
 
-
+ 
 if ($_POST["action"] == "saveOrganitations") {
 
     $action = new OrganitationsC;
