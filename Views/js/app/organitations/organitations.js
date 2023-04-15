@@ -53,13 +53,12 @@ export const getOrganitations = async () => {
             body: new URLSearchParams({ action: 'getOrganitations' })
         })
         const listOrganitatios = await response.json()
-        console.log(listOrganitatios)
         if (!listOrganitatios.state) {
             throw listOrganitatios.data
         }
         return listOrganitatios.data;
     } catch (error) {
-        console.log(error)
+        console.error(error)
         Swal.fire({
             icon: "error",
             title: "Opps!",
@@ -69,7 +68,6 @@ export const getOrganitations = async () => {
 }
 
 export const createTableOrganitations = (data) => {
-    console.log(data)
     cleanDataTable(tableOrganitations.id)
     const tbody = tableOrganitations.querySelector("tbody");
     tbody.innerHTML = '';

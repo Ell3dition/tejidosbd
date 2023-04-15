@@ -17,9 +17,11 @@ const numberEd = document.querySelector("#numeroEd")
 const referenceEd = document.querySelector("#referenciaEd")
 
 
-export const editOrganitations = async (idOrganitations) => {
-    console.log(idOrganitations)
+const legalPersonalityNumber = document.querySelector("#personalidadJuridicaEd")
+const boardElectionDate = document.querySelector("#eleccionDirecctivaEd")
+const yearsValidityDirective = document.querySelector("#duracionDirectivaEd")
 
+export const editOrganitations = async (idOrganitations) => {
     const url = "Controllers/organitations/organitationsC.php";
     const response = await fetch(url, {
         method: "POST",
@@ -34,6 +36,8 @@ export const editOrganitations = async (idOrganitations) => {
     }
     const data = organitation.data
 
+    console.log(data)
+
     await getProvincias(selectProvinciaEd.id, data.region_fk)
     await getComunas(selectComunaEd.id, data.provincia_fk)
 
@@ -45,10 +49,14 @@ export const editOrganitations = async (idOrganitations) => {
     idAddress.value = data.idAddress
     eRutEd.value = $.formatRut(data.rut)
     nameOrganitationsEd.value = data.nombre
-    typeOrganitationsEd.value = data.type
+    typeOrganitationsEd.value = data.typeOrganitationId
     streetEd.value = data.calle
     numberEd.value = data.numero
     referenceEd.value = data.referencia
+
+    legalPersonalityNumber.value = data.legalPersonalityNumber
+    boardElectionDate.value = data.boardElectionDate
+    yearsValidityDirective.value = data.yearsValidityDirective
 
     $("#editModal").modal("show")
 
@@ -111,4 +119,7 @@ const cleanFormEdit = () => {
     selectRegionEd.value = "0"
     selectProvinciaEd.value = "0"
     selectComunaEd.value = "0"
+    legalPersonalityNumber.value = "0"
+    boardElectionDate.value = "yyyy-MM-dd"
+    yearsValidityDirective.value = "0"
 }

@@ -58,17 +58,30 @@
                         <input type="hidden" class="form-control" id="idOrganitations">
                         <input type="hidden" class="form-control" id="idAddress">
                     </div>
+                    <div class="mb-3 col-md-3">
+                        <label for="personalidadJuridicaEd" class="form-label">N° Personalidad jurídica <span class="text-danger fw-bold">(*)</span></label>
+                        <input type="text" class="form-control" id="personalidadJuridicaEd">
+                    </div>
                     <div class="mb-3 col-md-6">
                         <label for="nombreEd" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="nombreEd">
                     </div>
-                    <div class="mb-3 col-md-3">
+                    <div class="mb-3 col-md-4">
                         <label class="form-label" for="tipoOrganizacionEd">Tipo de Organización</label>
                         <select name="" id="tipoOrganizacionEd" class="form-control">
                             <option value="0">Seleccione una Tipo</option>
                             <option value="tipoUno">tipo 1</option>
                             <option value="tipoDos">tipo 2</option>
                         </select>
+                    </div>
+
+                    <div class="mb-3 col-md-3">
+                        <label for="eleccionDirecctivaEd" class="form-label"> Fecha Elección Directiva <span class="text-danger fw-bold">(*)</span></label>
+                        <input type="date"  class="form-control" id="eleccionDirecctivaEd">
+                    </div>
+                    <div class="mb-3 col-md-3">
+                        <label for="duracionDirectivaEd" class="form-label"> Años Duración Directiva <span class="text-danger fw-bold">(*)</span></label>
+                        <input type="number" class="form-control" id="duracionDirectivaEd">
                     </div>
 
                     <div class="mb-3 col-md-4">
@@ -136,7 +149,7 @@
                         <input type="text" class="form-control" id="rutN">
                     </div>
                     <div class="mb-3 col-md-3">
-                        <label for="rutN" class="form-label">N° Personalidad jurídica <span class="text-danger fw-bold">(*)</span></label>
+                        <label for="personalidadJuridicaN" class="form-label">N° Personalidad jurídica <span class="text-danger fw-bold">(*)</span></label>
                         <input type="text" class="form-control" id="personalidadJuridicaN">
                     </div>
                     <div class="mb-3 col-md-6">

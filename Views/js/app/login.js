@@ -4,8 +4,6 @@ const formulario = document.querySelector("#formIngreso");
 formulario.addEventListener("submit", async function (e) {
   e.preventDefault();
   const btnForm = e.submitter
-
-  console.log(btnForm)
   enableButtonAnimation(btnForm, 'Validando...')
 
   const data = new FormData(formulario);
