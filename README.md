@@ -9,3 +9,5 @@ listar todos los contenedores **docker container ls -a**
 
 para ejecutar el contenedor **docker container start "id contenedor"**
 
+para detener el contenedor **docker container stop "id contenedor"**
+
