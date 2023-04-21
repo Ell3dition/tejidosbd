@@ -6,13 +6,13 @@
                 <h1>Bienvenidos</h1>
             </div>
 
-            <div class="col-6">
+            <div class="col-5">
                 <div class="row">
                     <div class="col-12">
                         <canvas id="myChart"></canvas>
                     </div>
                     <div class="col-12">
-                        <h4>Pie Grafico</h4>
+                        <h4>Socios y Organicaciones Habilitados</h4>
                     </div>
 
                 </div>
