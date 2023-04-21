@@ -6,9 +6,6 @@ export const executeChart = async() => {
     })
 
     const dataResponse = await response.json();
-
-    console.log(dataResponse)
-
     const grafico = document.querySelector('#myChart');
 
     const data = {

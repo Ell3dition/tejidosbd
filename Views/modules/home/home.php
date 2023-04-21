@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-12">
                         <h5>Género</h5>
-                        <table class="table table-light">
+                        <table class="table table-light" >
                             <thead>
                                 <tr>
                                     <th>
@@ -54,19 +54,8 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Hombres</td>
-                                    <td>60</td>
-                                </tr>
-                                <tr>
-                                    <td>Mujeres</td>
-                                    <td>60</td>
-                                </tr>
-                                <tr>
-                                    <td>Otro</td>
-                                    <td>60</td>
-                                </tr>
+                            <tbody id="tbody-genres"> 
+                               
                             </tbody>
                         </table>
                     </div>
