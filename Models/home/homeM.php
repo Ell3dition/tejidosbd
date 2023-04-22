@@ -31,4 +31,32 @@ class HomeM extends conexionBD
         }
 
     }
+    static function getAgeRangeM(){
+        try {
+            $sql = "SELECT * FROM getAgeRange";
+            $pdo = conexionBD::cBD()->prepare($sql);
+            $pdo->execute();
+            $data = $pdo->fetchAll();
+            $pdo = null;
+            return ["state" => true, "data" => $data];
+        } catch (PDOException $error) {
+            return ["state" => false, "data" => "Hubo un error al consultar los datos si el problema persiste contacte al administrador \ncodigo de error :" . $error->getMessage()];
+        }
+
+    }
+
+    static function getNumberOfPeopleByOrganizationM(){
+        try {
+            $sql = "SELECT * FROM getNumberOfPeopleByOrganization";
+            $pdo = conexionBD::cBD()->prepare($sql);
+            $pdo->execute();
+            $data = $pdo->fetchAll();
+            $pdo = null;
+            return ["state" => true, "data" => $data];
+        } catch (PDOException $error) {
+            return ["state" => false, "data" => "Hubo un error al consultar los datos si el problema persiste contacte al administrador \ncodigo de error :" . $error->getMessage()];
+        }
+
+    }
+   
 }
