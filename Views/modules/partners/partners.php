@@ -51,52 +51,121 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="mb-3 col-md-3">
-                        <label for="rutN" class="form-label">E-Rut</label>
+                  
+                    <div class="mb-3 col-md-12">
+                        <h6>Datos personales</h6>
+                    <hr class="w-70" />
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label for="rutN" class="form-label">Rut</label>
                         <input type="text" class="form-control" id="rutN">
                     </div>
-                    <div class="mb-3 col-md-6">
-                        <label for="nombreN" class="form-label">Nombre</label>
+                    <div class="mb-3 col-md-4">
+                        <label for="nombreN" class="form-label">Primer Nombre</label>
                         <input type="text" class="form-control" id="nombreN">
                     </div>
-                    <div class="mb-3 col-md-3">
-                        <label class="form-label" for="tipoOrganizacionN">Tipo de Organización</label>
-                        <select name="" id="tipoOrganizacionN" class="form-control">
-                            <option value="0">Seleccione una Tipo</option>
-                            <option value="tipoUno">tipo 1</option>
-                            <option value="tipoDos">tipo 2</option>
-                        </select>
-                    </div>
-
                     <div class="mb-3 col-md-4">
-                        <label class="form-label" for="calleN">Calle</label>
+                        <label for="nombreN" class="form-label">Segundo Nombre</label>
+                        <input type="text" class="form-control" id="nombreN">
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label for="nombreN" class="form-label">Apellido Paterno</label>
+                        <input type="text" class="form-control" id="nombreN">
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label for="nombreN" class="form-label">Apellido Materno</label>
+                        <input type="text" class="form-control" id="nombreN">
+                    </div>
+                
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" for="calleN">Fecha Nacimiento</label>
                         <input type="text" class="form-control" id="calleN">
                     </div>
 
-                    <div class="mb-3 col-md-3">
-                        <label class="form-label" for="numeroN">Número</label>
+                  
+
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" for="numeroN">Ocupación</label>
                         <input type="text" class="form-control" id="numeroN">
                     </div>
 
-                    <div class="mb-3 col-md-5">
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" for="calleN">Fecha Ingreso</label>
+                        <input type="text" class="form-control" id="calleN">
+                    </div>
+
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" for="regionN">Rol</label>
+                        <select name="" id="regionN" class="form-control">
+                            <option value="">Seleccione un Rol</option>
+                            <option value="">Administrador</option>
+                            <option value="">Socio</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" for="regionN">Género</label>
+                        <select name="" id="regionN" class="form-control">
+                            <option value="">Seleccione un Género</option>
+                            <option value="">Mujer</option>
+                            <option value="">Hombre</option>
+                            <option value="">Otro</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" for="calleN">Nivel Estudios</label>
+                        <input type="text" class="form-control" id="calleN">
+                    </div>
+
+                    <div class="mb-3 col-md-12">
+                        <h6>Datos Contacto</h6>
+                    <hr class="w-70" />
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" for="calleN">Celular</label>
+                        <input type="text" class="form-control" id="calleN">
+                    </div>
+
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" for="calleN">Telefono</label>
+                        <input type="text" class="form-control" id="calleN">
+                    </div>
+
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" for="calleN">Correo</label>
+                        <input type="text" class="form-control" id="calleN">
+                    </div>
+
+               
+
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" for="calleN">Calle <span class="text-danger fw-bold">(*)</span></label>
+                        <input type="text" class="form-control" id="calleN">
+                    </div>
+
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" for="numeroN">Número <span class="text-danger fw-bold">(*)</span></label>
+                        <input type="text" class="form-control" id="numeroN">
+                    </div>
+
+                    <div class="mb-3 col-md-4">
                         <label class="form-label" for="referenciaN">Referencia</label>
                         <input type="text" class="form-control" id="referenciaN">
                     </div>
 
                     <div class="mb-3 col-md-4">
-                        <label class="form-label" for="regionN">Región</label>
+                        <label class="form-label" for="regionN">Región <span class="text-danger fw-bold">(*)</span></label>
                         <select name="" id="regionN" class="form-control">
                             <option value="">Seleccione una Región</option>
                         </select>
                     </div>
                     <div class="mb-3 col-md-4">
-                        <label class="form-label" for="provinciaN">Provincia</label>
+                        <label class="form-label" for="provinciaN">Provincia <span class="text-danger fw-bold">(*)</span></label>
                         <select name="" id="provinciaN" class="form-control">
                             <option value="">Seleccione una Provincia</option>
                         </select>
                     </div>
                     <div class="mb-3 col-md-4">
-                        <label class="form-label" for="comunaN">Comuna</label>
+                        <label class="form-label" for="comunaN">Comuna <span class="text-danger fw-bold">(*)</span></label>
                         <select name="" id="comunaN" class="form-control">
                             <option value="">Seleccione una Comuna</option>
                         </select>
