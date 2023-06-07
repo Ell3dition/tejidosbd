@@ -34,7 +34,7 @@ const renderTable = (listPartner) => {
         <td>${index + 1}</td>
         <td>${$.formatRut(element.rut)}</td>
         <td>${element.namePartner}</td>
-        <td>${element.emailPartner}</td>
+        <td>${element.correo}</td>
         <td>${element.address}</td>
         <td> 
             <button class="btn btn-sm btn-warning edit" data-id=${element.id} type="button">Editar</button>
