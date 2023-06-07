@@ -1,4 +1,5 @@
 import { cleanDataTable, createDataTable } from "../../helpers/funtions.js";
+import { initSaverPartner } from "./savePartner.js";
 
 const partnersTable = document.querySelector("#table-partners")
 
@@ -6,6 +7,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const listPartner = await getListPartners();
     renderTable(listPartner)
+
+    initSaverPartner()
 
 })
 
@@ -20,6 +23,9 @@ const getListPartners = async () => {
     return data
 
 }
+
+
+
 
 
 const renderTable = (listPartner) => {
