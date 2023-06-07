@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 })
 
-const getListPartners = async () => {
+export const getListPartners = async () => {
 
     const url = "Controllers/partners/partnersC.php";
     const response = await fetch(url, {
@@ -28,7 +28,7 @@ const getListPartners = async () => {
 
 
 
-const renderTable = (listPartner) => {
+export const renderTable = (listPartner) => {
     const { data } = listPartner
     cleanDataTable(partnersTable.id)
     const tbody = partnersTable.querySelector("tbody")

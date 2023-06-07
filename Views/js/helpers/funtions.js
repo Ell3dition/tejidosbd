@@ -6,7 +6,8 @@ export {
     getComunas, 
     enableButtonAnimation, 
     disableButtonAnimation,
-    handleErrorsMessage
+    handleErrorsMessage,
+    getEducationalLevel
 }
 
 
@@ -229,4 +230,31 @@ function disableButtonAnimation(btn, texto, icon = false) {
       i.classList.add("fa", "fa-search");
       btn.append(i, texto);
     }
+}
+
+
+async function getEducationalLevel(idSelects){
+    const url = "Controllers/partners/partnersC.php";
+    const response = await fetch(url, {
+        method: "POST",
+        body: new URLSearchParams({ action: "getEducationalLevel" })
+    })
+    const listRegion = await response.json();
+
+    idSelects.forEach((idSelect)=>{
+
+        $(`#${idSelect}`).empty();
+        const select = document.querySelector(`#${idSelect}`);
+        const option = document.createElement("option");
+        option.value = "0";
+        option.text = "Seleccione un Nivel";
+        select.add(option);
+        listRegion.data.forEach((region) => {
+            const option = document.createElement("option");
+            option.value = region.id;
+            option.text = region.name;
+            select.add(option);
+        });
+
+    })
 }

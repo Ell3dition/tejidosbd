@@ -46,19 +46,19 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createModalLabel">Crear Socio</h5>
+                <h5 class="modal-title fw-bold" id="createModalLabel">Crear Socio</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
                   
                     <div class="mb-3 col-md-12">
-                        <h6>Datos personales</h6>
+                        <h6 class="fw-bold">Datos personales</h6>
                     <hr class="w-70" />
                     </div>
                     <div class="mb-3 col-md-4">
-                        <label for="rutN" class="form-label">Rut</label>
-                        <input type="text" class="form-control" id="rutN">
+                        <label for="rutN" class="form-label" >Rut</label>
+                        <input type="text" class="form-control" id="rutN" maxlength="12">
                     </div>
                     <div class="mb-3 col-md-4">
                         <label for="primerNombreN" class="form-label">Primer Nombre</label>
@@ -82,26 +82,6 @@
                         <input type="date" class="form-control" id="fechaNacimientoN">
                     </div>
 
-                  
-
-                    <div class="mb-3 col-md-4">
-                        <label class="form-label" for="ocupacionN">Ocupación</label>
-                        <input type="text" class="form-control" id="ocupacionN">
-                    </div>
-
-                    <div class="mb-3 col-md-4">
-                        <label class="form-label" for="fechaIngresoN">Fecha Ingreso</label>
-                        <input type="date" class="form-control" id="fechaIngresoN">
-                    </div>
-
-                    <div class="mb-3 col-md-4">
-                        <label class="form-label" for="rolN">Rol</label>
-                        <select name="" id="rolN" class="form-control">
-                            <option value="">Seleccione un Rol</option>
-                            <option value="">Administrador</option>
-                            <option value="">Socio</option>
-                        </select>
-                    </div>
                     <div class="mb-3 col-md-4">
                         <label class="form-label" for="generoN">Género</label>
                         <select name="" id="generoN" class="form-control">
@@ -118,8 +98,28 @@
                         </select>
                     </div>
 
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" for="ocupacionN">Ocupación</label>
+                        <input type="text" class="form-control" id="ocupacionN">
+                    </div>
+
+
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" for="fechaIngresoN">Fecha Ingreso</label>
+                        <input type="date" class="form-control" id="fechaIngresoN">
+                    </div>
+
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" for="rolN">Rol</label>
+                        <select name="" id="rolN" class="form-control">
+                            <option value="">Seleccione un Rol</option>
+                            <option value="Administrador">Administrador</option>
+                            <option value="Socio">Socio</option>
+                        </select>
+                    </div>
+
                     <div class="mb-3 col-md-12">
-                        <h6>Datos Contacto</h6>
+                        <h6 class="fw-bold">Datos Contacto</h6>
                     <hr class="w-70" />
                     </div>
                     <div class="mb-3 col-md-4">
