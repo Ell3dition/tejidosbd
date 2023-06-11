@@ -167,13 +167,23 @@ class PartnersC
         }
 
 
+        // SI POSEE ROL DE ADMINISTRADOR O COORDINADOR SE DEBE ESTABLECES LA CONTRASEÑA 
+        // POR DEFECTO
+
+        $guardarEnLogin = false;
+
+        if( $rol === 'Administrador' || $rol === 'Coordinador'){
+            $guardarEnLogin = true;
+        }
+
+
 
       if(!empty($errors)){
           echo json_encode(["errors"=>$errors]);
           return;
       }
 
-     $response = PartnersM::savePartnerM($dataSave, $existe);
+     $response = PartnersM::savePartnerM($dataSave, $existe, $guardarEnLogin);
      echo json_encode($response);
 
 

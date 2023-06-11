@@ -112,6 +112,7 @@
                         <select name="" id="rolN" class="form-control">
                             <option value="">Seleccione un Rol</option>
                             <option value="Administrador">Administrador</option>
+                            <option value="Coordinador">Coordinador</option>
                             <option value="Socio">Socio</option>
                         </select>
                     </div>

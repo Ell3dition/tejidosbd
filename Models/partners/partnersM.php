@@ -35,8 +35,7 @@ class PartnersM extends conexionBD
 
     }
 
-    static function savePartnerM($dataSave, $existe){
-
+    static function savePartnerM($dataSave, $existe, $guardarEnLogin){
 
         $conection = conexionBD::cBD();
 
@@ -61,8 +60,8 @@ class PartnersM extends conexionBD
                 $idDireccion = $conection->lastInsertId();
 
                 if ($idDireccion == NULL) {
-                $conection->rollBack();
-                return array("state" => false, "data" => "Error al insertar la direccion");
+                    $conection->rollBack();
+                    return array("state" => false, "data" => "Error al insertar la direccion");
                 }
 
                 $sqlSavePartner = "INSERT INTO tj_persona (rut_persona, dv_persona, primer_nombre, segundo_nombre, apellido_paterno,
@@ -100,24 +99,33 @@ class PartnersM extends conexionBD
             $pdo = $conection->prepare($sqlOrganizacion);
             $pdo->bindParam(":rut", $dataSave['rutSave'], PDO::PARAM_INT);
             $pdo->bindParam(":organizacion", $dataSave['organizacionId'], PDO::PARAM_STR );
-
-            if ( $pdo->execute()) {
-                $conection->commit();
-                return ["state" => true, "data" => "Registro guardado satisfactoriamente"];
+       
+            if (!$pdo->execute()) {
+                $conection->rollBack();
+                return ["state" => false, "data" => "Hubo un problema al intentar guardar el registo, si el problema persiste contacte al administrador"];
             }
 
-            $conection->rollBack();
-            return ["state" => false, "data" => "Hubo un problema al intentar guardar el registo, si el problema persiste contacte al administrador"];
+            if($guardarEnLogin){
+                $pass = password_hash("tejidos123", PASSWORD_DEFAULT);
+                $estado = "HABILITADO";
+                $sqlInsertLogin = "INSERT INTO tj_login (usuario, clave, estado) VALUES (:usuario, :clave, :estado)";
+                $pdo = $conection->prepare($sqlInsertLogin);
+                $pdo->bindParam(":usuario", $dataSave['rutSave'], PDO::PARAM_INT);
+                $pdo->bindParam(":clave", $pass, PDO::PARAM_STR);
+                $pdo->bindParam(":estado", $estado, PDO::PARAM_STR);
+                if (!$pdo->execute()) {
+                    $conection->rollBack();
+                    return ["state" => false, "data" => "Hubo un problema al intentar guardar el registo, si el problema persiste contacte al administrador"];
+                }
+            }
+
+            $conection->commit();
+            return ["state" => true, "data" => "Registro guardado satisfactoriamente"];
 
         } catch (PDOException $error) {
             $conection->rollBack();
             return ["state" => false, "data" => $error->getMessage()];
         }
-
-
-
-
-
 
     }
 
