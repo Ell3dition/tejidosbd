@@ -51,7 +51,6 @@ class LoginC
         }
 
         if ($respuesta->estado != 'HABILITADO') {
-
             $error = array("Estado" => false, "Motivo" => "Usuario deshabilitado, contácte al administrador");
             echo json_encode($error);
             return;
@@ -60,10 +59,13 @@ class LoginC
         $_SESSION["Ingreso"] = TRUE;
         $_SESSION["usuario"] = $respuesta->usuario;
         $_SESSION["id"] = $respuesta->id;
-        // $_SESSION["rol"] = $respuesta->ROL_USUARIO;
+        $_SESSION["rol"] = $respuesta->rol;
+        $_SESSION["nombreUsuario"] = $respuesta->userName;
+        $_SESSION["organizacion"] = $respuesta->organizacion;
+        $_SESSION["nombreOrganizacion"] = $respuesta->nombreOrganizacion;
         // $_SESSION["img"] = $respuesta->IMG_USUARIO;
 
-        echo json_encode(array("Estado" => true));
+        echo json_encode(array("Estado" => true, "Motivo"=>$respuesta->rol));
         return;
 
     }

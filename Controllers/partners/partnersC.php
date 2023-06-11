@@ -1,4 +1,8 @@
 <?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+
 require_once "../../Models/partners/partnersM.php";
 require_once "../helpers/validationsC.php";
 
@@ -34,7 +38,7 @@ class PartnersC
         $educationalLevel = $_data["educationalLevel"];
         $occupation = $_data["occupation"];
         $admissionDate = $_data["admissionDate"];
-        $rol = $_data["rol"];
+        $rol = isset($_data["rol"]) && $_data["rol"] !== null ? $_data["rol"] : 'socio';
         $cellPhone = $_data["cellPhone"];
         $phone = $_data["phone"];
         $mail = $_data["mail"];
@@ -44,9 +48,10 @@ class PartnersC
         $regionId = $_data["regionId"];
         $provinceId = $_data["provinceId"];
         $communeId = $_data["communeId"];
-        $organizacionId = $_data["organizacionId"];
+        $organizacionId = isset($_data["organizacionId"]) && $_data["organizacionId"] !== null ? $_data["organizacionId"] : $_SESSION["organizacion"];
 
-
+            // echo json_encode(["state" => false, "data" => "Estoy seteado perro".  $_SESSION["organizacion"]]);
+            // return ;
         $separateRut = explode('-', $rut);
         $dv = $separateRut[1];
         $rutSinPuntos = explode('.', $separateRut[0]);
@@ -164,10 +169,16 @@ class PartnersC
                 return ;
             }
 
+            // VALIDAR QUE SI EXISTE DEBE SER SOCIO,
+            // DEBIDO A QUE SOLO UN SOCIO PUEDE ESTAR INSCRITO EN DISTINTAS ORGANIZACIONES.
+            if($existe->rol !== 'Socio'){
+                echo json_encode(["state" => false, "data" => "El usuario ya esta registrado con el rol de ".$existe->rol]);
+                return ;
+            }
+
         }
 
-
-        // SI POSEE ROL DE ADMINISTRADOR O COORDINADOR SE DEBE ESTABLECES LA CONTRASEÑA 
+        // SI POSEE ROL DE ADMINISTRADOR O COORDINADOR SE DEBE ESTABLECER LA CONTRASEÑA 
         // POR DEFECTO
 
         $guardarEnLogin = false;

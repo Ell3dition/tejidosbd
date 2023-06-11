@@ -10,10 +10,10 @@ const apellidoMaternoN = document.querySelector('#apellidoMaternoN')
 const fechaNacimientoN = document.querySelector('#fechaNacimientoN')
 const ocupacionN = document.querySelector('#ocupacionN')
 const fechaIngresoN = document.querySelector('#fechaIngresoN')
-const rolN = document.querySelector('#rolN')
+const rolN = document.querySelector('#rolN') ?? ''
 const generoN = document.querySelector('#generoN')
 const nivelEstudiosN = document.querySelector('#nivelEstudiosN')
-const organizacionN = document.querySelector('#organizacionN')
+const organizacionN = document.querySelector('#organizacionN') ?? ''
 
 
 // datos contacto
@@ -39,7 +39,7 @@ export const initSaverPartner = ()=>{
 
     getRegiones([regionN.id])
     getEducationalLevel([nivelEstudiosN.id])
-    getOrganizationForSelect([organizacionN.id])
+    organizacionN && getOrganizationForSelect([organizacionN.id])
 }
 
 regionN.addEventListener('change', ()=>getProvincias([provinciaN.id], regionN.value))
@@ -60,7 +60,7 @@ btnGuardarPartner.addEventListener('click', async()=>{
     enableButtonAnimation(btnGuardarPartner, 'Espere...')
 
     const dataSave = {
-        organizacionId: organizacionN.value,
+        organizacionId: organizacionN ? organizacionN.value : null,
         rut: rutN.value,
         firstName: primerNombreN.value,
         secondName: segundoNombreN.value,
@@ -71,7 +71,7 @@ btnGuardarPartner.addEventListener('click', async()=>{
         educationalLevel: nivelEstudiosN.value,
         occupation: ocupacionN.value,
         admissionDate: fechaIngresoN.value,
-        rol: rolN.value,
+        rol: rolN ? rolN.value : null,
         cellPhone: celularN.value,
         phone: telefonoN.value,
         mail:correoN.value,
@@ -99,6 +99,8 @@ btnGuardarPartner.addEventListener('click', async()=>{
         return
     }
 
+    console.log(data)
+
     if (data.state) {
         cleanFormSavePartner();
         $("#createModal").modal('hide')
@@ -115,7 +117,7 @@ btnGuardarPartner.addEventListener('click', async()=>{
 
 
 const cleanFormSavePartner = ()=>{
-    organizacionN.value = ""
+    if(organizacionN)  organizacionN.value = ""
     rutN.value = ""
     primerNombreN.value = ""
     segundoNombreN.value = ""
@@ -126,7 +128,7 @@ const cleanFormSavePartner = ()=>{
     nivelEstudiosN.value = "0"
     ocupacionN.value = ""
     fechaIngresoN.value = ""
-    rolN.value = ""
+    if(rolN)rolN.value = ""
     celularN.value = ""
     telefonoN.value = ""
     correoN.value = ""

@@ -107,7 +107,9 @@
                         <input type="date" class="form-control" id="fechaIngresoN">
                     </div>
 
-                    <div class="mb-3 col-md-4">
+                    <?php if($_SESSION["rol"] === 'Administrador'){
+
+                        echo '<div class="mb-3 col-md-4">
                         <label class="form-label" for="rolN">Rol</label>
                         <select name="" id="rolN" class="form-control">
                             <option value="">Seleccione un Rol</option>
@@ -116,13 +118,15 @@
                             <option value="Socio">Socio</option>
                         </select>
                     </div>
-
                     <div class="mb-3 col-md-4">
-                        <label class="form-label" for="organizacionN">Organización</label>
-                        <select name="" id="organizacionN" class="form-control">
-                            <option value="">Seleccione una Organización</option>
-                        </select>
-                    </div>
+                    <label class="form-label" for="organizacionN">Organización</label>
+                    <select name="" id="organizacionN" class="form-control">
+                        <option value="">Seleccione una Organización</option>
+                    </select>
+                </div>
+
+                    ';
+                    } ?>
 
                     <div class="mb-3 col-md-12">
                         <h6 class="fw-bold">Datos Contacto</h6>
