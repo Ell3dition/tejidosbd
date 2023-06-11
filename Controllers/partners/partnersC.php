@@ -44,6 +44,7 @@ class PartnersC
         $regionId = $_data["regionId"];
         $provinceId = $_data["provinceId"];
         $communeId = $_data["communeId"];
+        $organizacionId = $_data["organizacionId"];
 
 
         $separateRut = explode('-', $rut);
@@ -51,9 +52,8 @@ class PartnersC
         $rutSinPuntos = explode('.', $separateRut[0]);
         $rutSave = $rutSinPuntos[0] . $rutSinPuntos[1] . $rutSinPuntos[2];
 
-
-
         $dataSave = [
+            "organizacionId" => $organizacionId,
             "rutSave" => $rutSave,
             "dv" => $dv,
             "firstName" => $firstName,
@@ -81,6 +81,12 @@ class PartnersC
         $errors = [];
         foreach($dataSave as $key => $value){
             switch($key){
+                case "organizacionId":
+                    $error = ValidationsC::validateSelection($value, "Organización");
+                    if($error != null){
+                        $errors[] = $error;
+                    }
+                    break;
                 case "rutSave":
                     $error = ValidationsC::validateEmptyString($value, "Rut");
                     if($error != null){
@@ -146,13 +152,28 @@ class PartnersC
             }
         }
 
+        // VALIDAR QUE EL USUARIO INGRESADO NO ESTE REGISTRADO
+    
+        $existe = PartnersM::validateTheExistenceOfTheUserM($dataSave['rutSave'].'-'.$dataSave['dv']);
+ 
+        if(!empty($existe)){
+            //SI EXISTE VALIDAR QUE NO ESTE REGISTRADO EN LA MISMA ORGANIZACION
+            $existeEnOrganizacion = PartnersM::validateUserInTheOrganizationM($dataSave['rutSave'], $dataSave['organizacionId']);
+            if(!empty($existeEnOrganizacion)){    
+                echo json_encode(["state" => false, "data" => "El usuario ya esta registrado en esta organización."]);
+                return ;
+            }
+
+        }
+
+
 
       if(!empty($errors)){
           echo json_encode(["errors"=>$errors]);
           return;
       }
 
-     $response = PartnersM::savePartnerM($dataSave);
+     $response = PartnersM::savePartnerM($dataSave, $existe);
      echo json_encode($response);
 
 

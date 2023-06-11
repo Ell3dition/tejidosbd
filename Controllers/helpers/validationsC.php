@@ -10,7 +10,7 @@ class ValidationsC {
     }
 
     static function validateSelection($value, $inputName){
-        if($value == 0 || $value =='0' || $value == null  ){
+        if($value == 0 || $value =='0' || $value == null || $value == ""  ){
            return ["state" => false, "data" =>  $inputName." es un dato obligatorio"];
         }
     }

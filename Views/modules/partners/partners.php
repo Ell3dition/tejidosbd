@@ -40,7 +40,6 @@
 
 <!-- MODAL CREAR -->
 
-
 <!-- Modal Crear-->
 <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -51,13 +50,13 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                  
+
                     <div class="mb-3 col-md-12">
                         <h6 class="fw-bold">Datos personales</h6>
-                    <hr class="w-70" />
+                        <hr class="w-70" />
                     </div>
                     <div class="mb-3 col-md-4">
-                        <label for="rutN" class="form-label" >Rut</label>
+                        <label for="rutN" class="form-label">Rut</label>
                         <input type="text" class="form-control" id="rutN" maxlength="12">
                     </div>
                     <div class="mb-3 col-md-4">
@@ -76,7 +75,7 @@
                         <label for="apellidoMaternoN" class="form-label">Apellido Materno</label>
                         <input type="text" class="form-control" id="apellidoMaternoN">
                     </div>
-                
+
                     <div class="mb-3 col-md-4">
                         <label class="form-label" for="fechaNacimientoN">Fecha Nacimiento</label>
                         <input type="date" class="form-control" id="fechaNacimientoN">
@@ -103,7 +102,6 @@
                         <input type="text" class="form-control" id="ocupacionN">
                     </div>
 
-
                     <div class="mb-3 col-md-4">
                         <label class="form-label" for="fechaIngresoN">Fecha Ingreso</label>
                         <input type="date" class="form-control" id="fechaIngresoN">
@@ -118,9 +116,16 @@
                         </select>
                     </div>
 
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" for="organizacionN">Organización</label>
+                        <select name="" id="organizacionN" class="form-control">
+                            <option value="">Seleccione una Organización</option>
+                        </select>
+                    </div>
+
                     <div class="mb-3 col-md-12">
                         <h6 class="fw-bold">Datos Contacto</h6>
-                    <hr class="w-70" />
+                        <hr class="w-70" />
                     </div>
                     <div class="mb-3 col-md-4">
                         <label class="form-label" for="celularN">Celular</label>
@@ -137,15 +142,15 @@
                         <input type="mail" class="form-control" id="correoN">
                     </div>
 
-               
-
                     <div class="mb-3 col-md-4">
-                        <label class="form-label" for="calleN">Calle <span class="text-danger fw-bold">(*)</span></label>
+                        <label class="form-label" for="calleN">Calle <span
+                                class="text-danger fw-bold">(*)</span></label>
                         <input type="text" class="form-control" id="calleN">
                     </div>
 
                     <div class="mb-3 col-md-4">
-                        <label class="form-label" for="numeroN">Número <span class="text-danger fw-bold">(*)</span></label>
+                        <label class="form-label" for="numeroN">Número <span
+                                class="text-danger fw-bold">(*)</span></label>
                         <input type="text" class="form-control" id="numeroN">
                     </div>
 
@@ -155,19 +160,22 @@
                     </div>
 
                     <div class="mb-3 col-md-4">
-                        <label class="form-label" for="regionN">Región <span class="text-danger fw-bold">(*)</span></label>
+                        <label class="form-label" for="regionN">Región <span
+                                class="text-danger fw-bold">(*)</span></label>
                         <select name="" id="regionN" class="form-control">
                             <option value="">Seleccione una Región</option>
                         </select>
                     </div>
                     <div class="mb-3 col-md-4">
-                        <label class="form-label" for="provinciaN">Provincia <span class="text-danger fw-bold">(*)</span></label>
+                        <label class="form-label" for="provinciaN">Provincia <span
+                                class="text-danger fw-bold">(*)</span></label>
                         <select name="" id="provinciaN" class="form-control">
                             <option value="">Seleccione una Provincia</option>
                         </select>
                     </div>
                     <div class="mb-3 col-md-4">
-                        <label class="form-label" for="comunaN">Comuna <span class="text-danger fw-bold">(*)</span></label>
+                        <label class="form-label" for="comunaN">Comuna <span
+                                class="text-danger fw-bold">(*)</span></label>
                         <select name="" id="comunaN" class="form-control">
                             <option value="">Seleccione una Comuna</option>
                         </select>

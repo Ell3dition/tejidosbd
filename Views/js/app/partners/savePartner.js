@@ -1,4 +1,4 @@
-import { disableButtonAnimation, enableButtonAnimation, getComunas, getEducationalLevel, getProvincias, getRegiones, handleErrorsMessage } from "../../helpers/funtions.js"
+import { disableButtonAnimation, enableButtonAnimation, getComunas, getEducationalLevel, getOrganizationForSelect, getProvincias, getRegiones, handleErrorsMessage } from "../../helpers/funtions.js"
 import { getListPartners, renderTable } from "./partners.js"
 
 // datos personales
@@ -13,6 +13,8 @@ const fechaIngresoN = document.querySelector('#fechaIngresoN')
 const rolN = document.querySelector('#rolN')
 const generoN = document.querySelector('#generoN')
 const nivelEstudiosN = document.querySelector('#nivelEstudiosN')
+const organizacionN = document.querySelector('#organizacionN')
+
 
 // datos contacto
 const celularN = document.querySelector('#celularN')
@@ -37,6 +39,7 @@ export const initSaverPartner = ()=>{
 
     getRegiones([regionN.id])
     getEducationalLevel([nivelEstudiosN.id])
+    getOrganizationForSelect([organizacionN.id])
 }
 
 regionN.addEventListener('change', ()=>getProvincias([provinciaN.id], regionN.value))
@@ -57,6 +60,7 @@ btnGuardarPartner.addEventListener('click', async()=>{
     enableButtonAnimation(btnGuardarPartner, 'Espere...')
 
     const dataSave = {
+        organizacionId: organizacionN.value,
         rut: rutN.value,
         firstName: primerNombreN.value,
         secondName: segundoNombreN.value,
@@ -111,6 +115,7 @@ btnGuardarPartner.addEventListener('click', async()=>{
 
 
 const cleanFormSavePartner = ()=>{
+    organizacionN.value = ""
     rutN.value = ""
     primerNombreN.value = ""
     segundoNombreN.value = ""

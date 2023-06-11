@@ -287,6 +287,14 @@ class OrganitationsC
         echo json_encode($response);
     }
 
+
+    function getOrganitationForSelectC(){
+
+        $response = OrganitationsM::getOrganitationForSelectM();
+        echo json_encode($response);
+    }
+
+    
 }
 
  
@@ -320,5 +328,11 @@ if ($_POST["action"] == "saveOrganitations") {
     $action = new OrganitationsC;
     $action->deleteOrganitationsC();
 
+}elseif ($_POST["action"] == "getOrganitatiosForSelect") {
+
+    $action = new OrganitationsC;
+    $action->getOrganitationForSelectC();
+
 }
+
 

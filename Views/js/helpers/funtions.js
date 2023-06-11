@@ -7,7 +7,8 @@ export {
     enableButtonAnimation, 
     disableButtonAnimation,
     handleErrorsMessage,
-    getEducationalLevel
+    getEducationalLevel,
+    getOrganizationForSelect
 }
 
 
@@ -253,6 +254,33 @@ async function getEducationalLevel(idSelects){
             const option = document.createElement("option");
             option.value = region.id;
             option.text = region.name;
+            select.add(option);
+        });
+
+    })
+}
+
+
+async function getOrganizationForSelect(idSelects){
+    const url = "Controllers/organitations/organitationsC.php";
+    const response = await fetch(url, {
+        method: "POST",
+        body: new URLSearchParams({ action: "getOrganitatiosForSelect" })
+    })
+    const listData = await response.json();
+
+    idSelects.forEach((idSelect)=>{
+
+        $(`#${idSelect}`).empty();
+        const select = document.querySelector(`#${idSelect}`);
+        const option = document.createElement("option");
+        option.value = "0";
+        option.text = "Seleccione una organización";
+        select.add(option);
+        listData.data.forEach((data) => {
+            const option = document.createElement("option");
+            option.value = data.id;
+            option.text = data.name;
             select.add(option);
         });
 
