@@ -8,7 +8,8 @@ export {
     disableButtonAnimation,
     handleErrorsMessage,
     getEducationalLevel,
-    getOrganizationForSelect
+    getOrganizationForSelect,
+    formatRut
 }
 
 
@@ -284,5 +285,15 @@ async function getOrganizationForSelect(idSelects){
             select.add(option);
         });
 
+    })
+}
+
+const formatRut = (listIdInputs)=>{
+    listIdInputs.forEach((id)=>{
+        $(`input#${id}`).rut({
+            formatOn: 'keyup',
+            minimumLength: 8, // validar largo mínimo; default: 2
+            validateOn: 'change' // si no se quiere validar, pasar null
+        });
     })
 }

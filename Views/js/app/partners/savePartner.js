@@ -1,4 +1,6 @@
-import { disableButtonAnimation, enableButtonAnimation, getComunas, getEducationalLevel, getOrganizationForSelect, getProvincias, getRegiones, handleErrorsMessage } from "../../helpers/funtions.js"
+export const initSaverPartner = ()=>console.log('form inicializado')
+
+import { disableButtonAnimation, enableButtonAnimation, getComunas, getProvincias, handleErrorsMessage } from "../../helpers/funtions.js"
 import { getListPartners, renderTable } from "./partners.js"
 
 // datos personales
@@ -30,17 +32,6 @@ const comunaN = document.querySelector('#comunaN')
 const btnGuardarPartner = document.querySelector('#btnSavePartner')
 
 
-export const initSaverPartner = ()=>{
-    $(`input#${rutN.id}`).rut({
-        formatOn: 'keyup',
-        minimumLength: 8, // validar largo mínimo; default: 2
-        validateOn: 'change' // si no se quiere validar, pasar null
-    });
-
-    getRegiones([regionN.id])
-    getEducationalLevel([nivelEstudiosN.id])
-    organizacionN && getOrganizationForSelect([organizacionN.id])
-}
 
 regionN.addEventListener('change', ()=>getProvincias([provinciaN.id], regionN.value))
 provinciaN.addEventListener('change', ()=>getComunas([comunaN.id], provinciaN.value))
