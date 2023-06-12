@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const listPartner = await getListPartners();
     renderTable(listPartner)
 
+    console.log(listPartner)
+
     initSaverPartner()
 
 })
@@ -29,19 +31,21 @@ export const getListPartners = async () => {
 
 
 export const renderTable = (listPartner) => {
-    const { data } = listPartner
+    const { data, rol } = listPartner
     cleanDataTable(partnersTable.id)
     const tbody = partnersTable.querySelector("tbody")
 
     const listTr = [];
     data.forEach((element, index) => {
         const tr = document.createElement('tr')
+        tr.classList.add(element.rol === 'Coordinador' ? 'table-info' : 'table-light')
         tr.innerHTML = `
         <td>${index + 1}</td>
         <td>${$.formatRut(element.rut)}</td>
         <td>${element.namePartner}</td>
         <td>${element.correo}</td>
         <td>${element.address}</td>
+        ${addTdAdministrador(rol,element)}
         <td> 
             <button class="btn btn-sm btn-warning edit" data-id=${element.id} type="button">Editar</button>
             <button class="btn btn-sm btn-danger delete" data-id=${element.id} type="button">Eliminar</button>
@@ -51,4 +55,10 @@ export const renderTable = (listPartner) => {
     });
     tbody.append(...listTr)
     createDataTable(partnersTable.id, null, 'Lista de socios')
+}
+
+const addTdAdministrador = (rol,element)=>{
+    
+    return rol === 'Administrador' ? `<td>${element.nombreOrganizacion}</td>` : ''
+    
 }

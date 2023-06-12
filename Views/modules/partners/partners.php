@@ -25,6 +25,7 @@
                             <th>Nombre</th>
                             <th>Correo</th>
                             <th>Dirección</th>
+                            <?php if($_SESSION["rol"] === 'Administrador'){echo ' <th>Organización</th>';} ?>
                             <th class="no-exportar">Acciones</th>
                         </tr>
                     </thead>

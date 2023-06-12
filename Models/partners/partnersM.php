@@ -4,15 +4,18 @@ require_once "../../Models/conexionBD.php";
 
 class PartnersM extends conexionBD
 {
-    static function getPartnersM()
+    static function getPartnersM($allRecords, $organizacionId)
     {
+        $sql = $allRecords 
+                ? "SELECT * FROM getPartners"
+                : "SELECT * FROM getPartners WHERE organizacion = $organizacionId";
+
         try {
-            $sql = "SELECT * FROM getPartners";
             $pdo = conexionBD::cBD()->prepare($sql);
             $pdo->execute();
             $listPartners = $pdo->fetchAll();
             $pdo = null;
-            return ["state" => true, "data" => $listPartners];
+            return $listPartners;
         } catch (PDOException $error) {
             return ["state" => false, "data" => "Hubo un error al consultar los datos si el problema persiste contacte al administrador \ncodigo de error :" . $error->getMessage()];
         }

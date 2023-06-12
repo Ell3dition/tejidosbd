@@ -11,8 +11,11 @@ class PartnersC
     function getPartnersC()
     {
 
-        $response = PartnersM::getPartnersM();
-        echo json_encode($response);
+        $rol = $_SESSION["rol"];
+        $allRecords = $rol === 'Administrador';   
+
+        $response = PartnersM::getPartnersM($allRecords, $_SESSION["organizacion"]);
+        echo json_encode(["state" => true, "data" => $response, "rol" => $rol]);
 
     }
 
@@ -50,8 +53,6 @@ class PartnersC
         $communeId = $_data["communeId"];
         $organizacionId = isset($_data["organizacionId"]) && $_data["organizacionId"] !== null ? $_data["organizacionId"] : $_SESSION["organizacion"];
 
-            // echo json_encode(["state" => false, "data" => "Estoy seteado perro".  $_SESSION["organizacion"]]);
-            // return ;
         $separateRut = explode('-', $rut);
         $dv = $separateRut[1];
         $rutSinPuntos = explode('.', $separateRut[0]);
