@@ -15,6 +15,8 @@ const rolEd = document.querySelector('#rolEd') ?? ''
 const generoEd = document.querySelector('#generoEd')
 const nivelEstudiosEd = document.querySelector('#nivelEstudiosEd')
 const organizacionEd = document.querySelector('#organizacionEd') ?? ''
+const direccionId = document.querySelector('#direccionIdEd')
+const rutGuardado = document.querySelector('#rutGuardadoEd') 
 
 
 // datos contacto
@@ -129,10 +131,46 @@ const cleanFormEditPartner = ()=>{
 }
 
 
-export const setPartnerForEdit = (partnerId, buttonEdit)=>{
+export const setPartnerForEdit = async (partner, buttonEdit)=>{
+   try {
+    enableButtonAnimation(buttonEdit, 'Espere...')
+    rutGuardado.value = partner.rut
+    rutEd.value = $.formatRut(partner.rut)
+    correoEd.value = partner.correo
+    rolEd.value = partner.rol
+    organizacionEd.value = partner.organizacion
+    primerNombreEd.value = partner.nombreUno
+    segundoNombreEd.value = partner.nombreDos
+    apellidoPaternoEd.value = partner.apellidoUno
+    apellidoMaternoEd.value = partner.apellidoDos
+    fechaNacimientoEd.value = partner.fechaNacimiento
+    generoEd.value = partner.genero
+    ocupacionEd.value = partner.ocupacion
+    nivelEstudiosEd.value = partner.nivelEstudios
+    fechaIngresoEd.value = partner.fechaIngreso
+    celularEd.value = partner.celular
+    telefonoEd.value = partner.telefono
+    direccionId.value = partner.direccionId
+    regionEd.value = partner.regionId
+
     
+    await getProvincias([provinciaEd.id], partner.regionId)
+    await getComunas([comunaEd.id], partner.provinciaId)
+
+    provinciaEd.value = partner.provinciaId
+    comunaEd.value = partner.comunaId
+
+    calleEd.value = partner.calle
+    numeroEd.value = partner.numero
+    referenciaEd.value = partner.referencia
+
+    disableButtonAnimation(buttonEdit, 'Editar')
+   } catch (error) {
+    disableButtonAnimation(buttonEdit, 'Editar')
+   }
+
     $("#editarModal").modal('show')
-    console.log(partnerId)
+
     console.log(buttonEdit)
 
 

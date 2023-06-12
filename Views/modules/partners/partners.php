@@ -216,6 +216,8 @@
                     <div class="mb-3 col-md-4">
                         <label for="rutEd" class="form-label">Rut</label>
                         <input type="text" class="form-control" id="rutEd" maxlength="12">
+                        <input type="hidden" class="form-control" id="rutGuardadoEd" maxlength="12">
+                        <input type="hidden" class="form-control" id="direccionIdEd" maxlength="12">
                     </div>
                     <div class="mb-3 col-md-4">
                         <label for="primerNombreEd" class="form-label">Primer Nombre</label>

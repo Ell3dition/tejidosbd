@@ -29,9 +29,9 @@ document.addEventListener('DOMContentLoaded', initPartnerModule)
 
 document.addEventListener('click', (event) => {
     if (String(event.target.classList).includes('edit')) {
-        const partnerId = event.target.dataset.id
-        console.log(partnerId)
-        setPartnerForEdit(partnerId , event.target)
+        const partner = event.target.dataset.partner
+        console.log(partner)
+        setPartnerForEdit(JSON.parse(partner) , event.target)
     } else if (String(event.target.classList).includes('delete')) {
         const partnerId = event.target.dataset.id
         console.log(partnerId)
@@ -68,7 +68,7 @@ export const renderTable = (listPartner) => {
         <td>${element.address}</td>
         ${addTdAdministrador(rol,element)}
         <td> 
-            <button class="btn btn-sm btn-warning edit" data-id=${element.rut} type="button">Editar</button>
+            <button class="btn btn-sm btn-warning edit" data-partner='${JSON.stringify(element)}' type="button">Editar</button>
             <button class="btn btn-sm btn-danger delete" data-id=${element.rut} type="button">Eliminar</button>
         </td>`
 
