@@ -95,6 +95,22 @@ class OrganitationsM extends conexionBD
         }
     }
 
+    static function getOrganitationForSelectM()
+    {
+        try {
+            $sql = "SELECT organizationId as id, name  FROM getOrganization WHERE state = 'Habilitada'";
+            $pdo = conexionBD::cBD()->prepare($sql);
+            $pdo->execute();
+            $listOrganitations = $pdo->fetchAll();
+            $pdo = null;
+            return ["state" => true, "data" => $listOrganitations];
+        } catch (PDOException $error) {
+            return ["state" => false, "data" => "Hubo un error al consultar los datos si el problema persiste contacte al administrador \ncodigo de error :" . $error->getMessage()];
+        }
+    }
+
+    
+
 
     static function getOrganitationM($idOrganitation)
     {

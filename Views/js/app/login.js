@@ -28,5 +28,7 @@ formulario.addEventListener("submit", async function (e) {
     }
     return
   }
-    window.location = "home";
+
+  const pathRoute = Motivo === 'Administrador' ? "home" : 'partners'
+  window.location = pathRoute;
 });

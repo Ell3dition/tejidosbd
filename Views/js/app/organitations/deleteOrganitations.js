@@ -26,7 +26,6 @@ export const deleteOrganitation = async (idOrganitation, button) => {
       })
 
       const data = await response.json()
-      console.log(data)
       if (data.state) {
           const data = await getOrganitations();
           createTableOrganitations(data)

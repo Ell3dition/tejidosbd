@@ -6,7 +6,10 @@ export {
     getComunas, 
     enableButtonAnimation, 
     disableButtonAnimation,
-    handleErrorsMessage
+    handleErrorsMessage,
+    getEducationalLevel,
+    getOrganizationForSelect,
+    formatRut
 }
 
 
@@ -229,4 +232,68 @@ function disableButtonAnimation(btn, texto, icon = false) {
       i.classList.add("fa", "fa-search");
       btn.append(i, texto);
     }
+}
+
+
+async function getEducationalLevel(idSelects){
+    const url = "Controllers/partners/partnersC.php";
+    const response = await fetch(url, {
+        method: "POST",
+        body: new URLSearchParams({ action: "getEducationalLevel" })
+    })
+    const listRegion = await response.json();
+
+    idSelects.forEach((idSelect)=>{
+
+        $(`#${idSelect}`).empty();
+        const select = document.querySelector(`#${idSelect}`);
+        const option = document.createElement("option");
+        option.value = "0";
+        option.text = "Seleccione un Nivel";
+        select.add(option);
+        listRegion.data.forEach((region) => {
+            const option = document.createElement("option");
+            option.value = region.id;
+            option.text = region.name;
+            select.add(option);
+        });
+
+    })
+}
+
+
+async function getOrganizationForSelect(idSelects){
+    const url = "Controllers/organitations/organitationsC.php";
+    const response = await fetch(url, {
+        method: "POST",
+        body: new URLSearchParams({ action: "getOrganitatiosForSelect" })
+    })
+    const listData = await response.json();
+
+    idSelects.forEach((idSelect)=>{
+
+        $(`#${idSelect}`).empty();
+        const select = document.querySelector(`#${idSelect}`);
+        const option = document.createElement("option");
+        option.value = "0";
+        option.text = "Seleccione una organización";
+        select.add(option);
+        listData.data.forEach((data) => {
+            const option = document.createElement("option");
+            option.value = data.id;
+            option.text = data.name;
+            select.add(option);
+        });
+
+    })
+}
+
+const formatRut = (listIdInputs)=>{
+    listIdInputs.forEach((id)=>{
+        $(`input#${id}`).rut({
+            formatOn: 'keyup',
+            minimumLength: 8, // validar largo mínimo; default: 2
+            validateOn: 'change' // si no se quiere validar, pasar null
+        });
+    })
 }

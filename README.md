@@ -13,3 +13,9 @@ para detener el contenedor **docker container stop "id contenedor"**
 
 para descartar todos los cambios de docker-compose 
 debe ejecutar **docker compose down**
+
+
+TODO
+Validar que usuario no exista
+agregar opcion de agregar a organizacion
+y si es administrador el perfil mostrar todos mas columna de organizacion a la que pertence el socio 
