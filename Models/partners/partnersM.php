@@ -168,4 +168,141 @@ class PartnersM extends conexionBD
     }
 
 
+    static function updatePartnerM($dataSave,  $options){
+        
+        $conection = conexionBD::cBD();
+
+        try {
+
+            $conection->beginTransaction();
+            
+            //ACTUALIZAR DIRECCION
+
+            $sqlDireccion = "UPDATE tj_direccion SET calle = :calle, 
+                                    numero = :numero,
+                                    referencia = :referencia,
+                                    region_fk = :region,
+                                    provincia_fk = :provincia,
+                                    comuna_fk = :comuna
+                            WHERE id = :direccionId";
+           
+            $pdo = $conection->prepare($sqlDireccion);
+            
+            $pdo->bindParam(":direccionId", $dataSave['direccionId'], PDO::PARAM_STR );
+            $pdo->bindParam(":calle", $dataSave['street'], PDO::PARAM_STR );
+            $pdo->bindParam(":numero", $dataSave['number'], PDO::PARAM_STR );
+            $pdo->bindParam(":referencia", $dataSave['references'], PDO::PARAM_STR );
+            $pdo->bindParam(":region", $dataSave['regionId'], PDO::PARAM_INT );
+            $pdo->bindParam(":provincia", $dataSave['provinceId'], PDO::PARAM_INT );
+            $pdo->bindParam(":comuna", $dataSave['communeId'], PDO::PARAM_INT );
+           
+           
+            if ( !$pdo->execute()) {
+                 $conection->rollBack();
+                 return array("state" => false, "data" => "Error al actualizar la dirección");
+             }
+
+            $sqlSavePartner = "UPDATE tj_persona SET rut_persona = :rut,
+                                      dv_persona = :dv, 
+                                      primer_nombre = :primerNombre,
+                                      segundo_nombre = :segundoNombre,
+                                      apellido_paterno = :apellidoPaterno,
+                                      apellido_materno = :apellidoMaterno,
+                                      fecha_nacimiento = :fechaNacimiento,
+                                      ocupacion_persona = :ocupacionPersona,
+                                      fecha_ingreso = :fechaIngreso,
+                                      rol_persona = :rolPersona, 
+                                      genero_persona = :generoPersona,
+                                      celular = :celular,
+                                      telefono = :telefono,
+                                      correo = :correo,
+                                      id_estudios_fk = :idEstudio
+                               WHERE rut_persona = :rutExistente";
+            
+            $pdo = $conection->prepare($sqlSavePartner);
+           
+            $pdo->bindParam(":rutExistente", $dataSave['rutExistente'], PDO::PARAM_INT);
+            $pdo->bindParam(":rut", $dataSave['rutSave'], PDO::PARAM_INT);
+            $pdo->bindParam(":dv", $dataSave['dv'], PDO::PARAM_STR );
+            $pdo->bindParam(":primerNombre", $dataSave['firstName'], PDO::PARAM_STR );
+            $pdo->bindParam(":segundoNombre", $dataSave['secondName'], PDO::PARAM_STR );
+            $pdo->bindParam(":apellidoPaterno", $dataSave['lastname'], PDO::PARAM_STR );
+            $pdo->bindParam(":apellidoMaterno", $dataSave['secondLastname'], PDO::PARAM_STR );
+            $pdo->bindParam(":fechaNacimiento", $dataSave['birthdate'], PDO::PARAM_STR );
+            $pdo->bindParam(":ocupacionPersona", $dataSave['occupation'], PDO::PARAM_STR );
+            $pdo->bindParam(":fechaIngreso", $dataSave['admissionDate'], PDO::PARAM_STR );
+            $pdo->bindParam(":rolPersona", $dataSave['rol'], PDO::PARAM_STR );
+            $pdo->bindParam(":generoPersona", $dataSave['gender'], PDO::PARAM_STR );
+            $pdo->bindParam(":celular", $dataSave['cellPhone'], PDO::PARAM_STR );
+            $pdo->bindParam(":telefono", $dataSave['phone'], PDO::PARAM_STR );
+            $pdo->bindParam(":correo", $dataSave['mail'], PDO::PARAM_STR );
+            $pdo->bindParam(":idEstudio", $dataSave['educationalLevel'], PDO::PARAM_STR );
+            if (!$pdo->execute()) {
+                $conection->rollBack();
+                return ["state" => false, "data" => "Error al actualizar el registro"];
+            
+            }
+            
+            // ACTUALIZAR ORGANIZACION DE USUARIO
+            $sqlOrganizacion = "UPDATE tj_persona_organizacion_paso 
+                                SET rut = :rut, organizacion = :organizacion 
+                                WHERE id = :recordId";
+            $pdo = $conection->prepare($sqlOrganizacion);
+            $pdo->bindParam(":recordId", $dataSave['recordId'], PDO::PARAM_INT);
+            $pdo->bindParam(":rut", $dataSave['rutSave'], PDO::PARAM_INT);
+            $pdo->bindParam(":organizacion", $dataSave['organizacionId'], PDO::PARAM_STR );
+       
+            if (!$pdo->execute()) {
+                $conection->rollBack();
+                return ["state" => false, "data" => "Hubo un problema al intentar actualizar el registo, si el problema persiste contacte al administrador"];
+            }
+
+            if( $options["guardarLogin"] ){
+                $pass = password_hash("tejidos123", PASSWORD_DEFAULT);
+                $estado = "HABILITADO";
+                $sqlInsertLogin = "INSERT INTO tj_login (usuario, clave, estado) VALUES (:usuario, :clave, :estado)";
+                $pdo = $conection->prepare($sqlInsertLogin);
+                $pdo->bindParam(":usuario", $dataSave['rutSave'], PDO::PARAM_INT);
+                $pdo->bindParam(":clave", $pass, PDO::PARAM_STR);
+                $pdo->bindParam(":estado", $estado, PDO::PARAM_STR);
+                if (!$pdo->execute()) {
+                    $conection->rollBack();
+                    return ["state" => false, "data" => "Hubo un problema al intentar guardar el registo, si el problema persiste contacte al administrador"];
+                }
+            }
+
+            if( $options["eliminarDelLogin"] ){
+                $estado= 'DESHABILITADO';
+                $sqlDisabledUser = "UPDATE tj_login SET estado = :estado WHERE usuario = :usuario";
+                $pdo = $conection->prepare($sqlDisabledUser);
+                $pdo->bindParam(":usuario", $dataSave['rutSave'], PDO::PARAM_INT);
+                $pdo->bindParam(":estado", $estado, PDO::PARAM_STR);
+                if (!$pdo->execute()) {
+                    $conection->rollBack();
+                    return ["state" => false, "data" => "Hubo un problema al intentar guardar el registo, si el problema persiste contacte al administrador"];
+                }
+            }
+
+            if( $options["cambiarEstadoLogin"] ){
+                $estado= 'HABILITADO';
+                $sqlDisabledUser = "UPDATE tj_login SET estado = :estado WHERE usuario = :usuario";
+                $pdo = $conection->prepare($sqlDisabledUser);
+                $pdo->bindParam(":usuario", $dataSave['rutSave'], PDO::PARAM_INT);
+                $pdo->bindParam(":estado", $estado, PDO::PARAM_STR);
+                if (!$pdo->execute()) {
+                    $conection->rollBack();
+                    return ["state" => false, "data" => "Hubo un problema al intentar guardar el registo, si el problema persiste contacte al administrador"];
+                }
+            }
+            $conection->commit();
+            return ["state" => true, "data" => "Registro actualizado satisfactoriamente"];
+
+        } catch (PDOException $error) {
+            $conection->rollBack();
+            return ["state" => false, "data" => $error->getMessage()];
+        }
+
+    }
+
+
 }

@@ -16,7 +16,6 @@ const renderPartnerByOrganitation = async()=>{
       body: new URLSearchParams({action:'getNumberOfPeopleByOrganization'})
     })
     const dataResponse = await response.json();
-    console.log(dataResponse)
     const tbody = document.querySelector("#tbody-partenerByOrganitations")
     tbody.innerHTML = '';
 

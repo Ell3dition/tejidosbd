@@ -90,8 +90,6 @@ btnGuardarPartner.addEventListener('click', async()=>{
         return
     }
 
-    console.log(data)
-
     if (data.state) {
         cleanFormSavePartner();
         $("#createModal").modal('hide')

@@ -29,6 +29,11 @@ const referenciaEd = document.querySelector('#referenciaEd')
 const regionEd = document.querySelector('#regionEd')
 const provinciaEd = document.querySelector('#provinciaEd')
 const comunaEd = document.querySelector('#comunaEd')
+const recordId = document.querySelector('#recordIdEd')
+const rolActual = document.querySelector('#rolActualEd')
+
+
+
 
 const btnEditPartner = document.querySelector('#btnEditPartner')
 
@@ -50,6 +55,10 @@ btnEditPartner.addEventListener('click', async()=>{
     enableButtonAnimation(btnEditPartner, 'Espere...')
 
     const dataSave = {
+        rolActual: rolActual.value,
+        recordId: recordId.value,
+        rutGuardado:rutGuardado.value,
+        direccionId:direccionId.value, 
         organizacionId: organizacionEd ? organizacionEd.value : null,
         rut: rutEd.value,
         firstName: primerNombreEd.value,
@@ -77,7 +86,7 @@ btnEditPartner.addEventListener('click', async()=>{
     const url = "Controllers/partners/partnersC.php";
     const response = await fetch(url, {
         method: "POST",
-        body: new URLSearchParams({ action: "savePartner", data: JSON.stringify(dataSave) })
+        body: new URLSearchParams({ action: "updatePartner", data: JSON.stringify(dataSave) })
     })
 
     const data = await response.json();
@@ -89,7 +98,6 @@ btnEditPartner.addEventListener('click', async()=>{
         return
     }
 
-    console.log(data)
 
     if (data.state) {
         cleanFormEditPartner();
@@ -134,10 +142,12 @@ const cleanFormEditPartner = ()=>{
 export const setPartnerForEdit = async (partner, buttonEdit)=>{
    try {
     enableButtonAnimation(buttonEdit, 'Espere...')
+    recordId.value = partner.recordId
     rutGuardado.value = partner.rut
     rutEd.value = $.formatRut(partner.rut)
     correoEd.value = partner.correo
     rolEd.value = partner.rol
+    rolActual.value = partner.rol
     organizacionEd.value = partner.organizacion
     primerNombreEd.value = partner.nombreUno
     segundoNombreEd.value = partner.nombreDos
@@ -171,7 +181,6 @@ export const setPartnerForEdit = async (partner, buttonEdit)=>{
 
     $("#editarModal").modal('show')
 
-    console.log(buttonEdit)
 
 
 }
