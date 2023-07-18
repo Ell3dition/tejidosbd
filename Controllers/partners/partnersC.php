@@ -392,19 +392,27 @@ class PartnersC
         }
 
 
-    if(!empty($errors)){
-        echo json_encode(["errors"=>$errors]);
-        return;
+        if(!empty($errors)){
+            echo json_encode(["errors"=>$errors]);
+            return;
+        }
+
+        $options = ["guardarLogin"=> $guardarEnLogin, "eliminarDelLogin" => $eliminarDelLogin, "cambiarEstadoLogin" => $cambiarEstadoLogin];
+
+         $response = PartnersM::updatePartnerM($dataSave,  $options);
+         echo json_encode($response);
+
+
     }
 
-    $options = ["guardarLogin"=> $guardarEnLogin, "eliminarDelLogin" => $eliminarDelLogin, "cambiarEstadoLogin" => $cambiarEstadoLogin];
+    function deletePartnerC(){
 
-     $response = PartnersM::updatePartnerM($dataSave,  $options);
-     echo json_encode($response);
-
+        $partnerId = $_POST["partnerId"];
+        $separateRut = explode('-', $partnerId)[0];
+        $response = PartnersM::deletePartnerM($separateRut);
+        echo json_encode($response);
 
     }
-
 }
 
 
@@ -426,6 +434,9 @@ if ($_POST["action"] == "getPartners") {
 }  elseif($_POST["action"] == "updatePartner") {
     $action = new PartnersC;
     $action->updatePartnerC();
+} elseif($_POST["action"] == "deletePartner") {
+    $action = new PartnersC;
+    $action->deletePartnerC();
 } 
 
 

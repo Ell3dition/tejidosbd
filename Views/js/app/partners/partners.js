@@ -1,4 +1,6 @@
 import { cleanDataTable, createDataTable, formatRut, getEducationalLevel, getOrganizationForSelect, getRegiones } from "../../helpers/funtions.js";
+import { deletePartner } from "./deletePartner.js";
+import { detailPartner } from "./detailPartner.js";
 import { setPartnerForEdit } from "./editPartner.js";
 import { initSaverPartner } from "./savePartner.js";
 
@@ -28,14 +30,17 @@ const initPartnerModule = async ()=>{
 document.addEventListener('DOMContentLoaded', initPartnerModule)
 
 document.addEventListener('click', (event) => {
+    const button = event.target
     if (String(event.target.classList).includes('edit')) {
         const partner = event.target.dataset.partner
-        console.log(partner)
-        setPartnerForEdit(JSON.parse(partner) , event.target)
+        setPartnerForEdit(JSON.parse(partner) , button)
     } else if (String(event.target.classList).includes('delete')) {
         const partnerId = event.target.dataset.id
-        console.log(partnerId)
-        // deleteOrganitation(idOrganitation , event.target)
+        deletePartner(partnerId, button)
+    }else if ( String(event.target.classList).includes('detail') ) {
+        const partnerId = event.target.dataset.id
+        detailPartner(partnerId)
+
     }
 })
 
@@ -70,6 +75,7 @@ export const renderTable = (listPartner) => {
         <td> 
             <button class="btn btn-sm btn-warning edit" data-partner='${JSON.stringify(element)}' type="button">Editar</button>
             <button class="btn btn-sm btn-danger delete" data-id=${element.rut} type="button">Eliminar</button>
+          <!--  <button class="btn btn-sm btn-primary detail" data-id=${element.rut} type="button">Ver Ficha</button> -->
         </td>`
 
         listTr.push(tr)
