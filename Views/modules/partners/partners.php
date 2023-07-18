@@ -219,7 +219,7 @@
                         <input type="hidden" class="form-control" id="rutGuardadoEd">
                         <input type="hidden" class="form-control" id="direccionIdEd">
                         <input type="hidden" class="form-control" id="recordIdEd">
-                        <input type="text" class="form-control" id="rolActualEd">
+                        <input type="hidden" class="form-control" id="rolActualEd">
                     </div>
                     <div class="mb-3 col-md-4">
                         <label for="primerNombreEd" class="form-label">Primer Nombre</label>

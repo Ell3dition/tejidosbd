@@ -11,10 +11,10 @@ const apellidoMaternoEd = document.querySelector('#apellidoMaternoEd')
 const fechaNacimientoEd = document.querySelector('#fechaNacimientoEd')
 const ocupacionEd = document.querySelector('#ocupacionEd')
 const fechaIngresoEd = document.querySelector('#fechaIngresoEd')
-const rolEd = document.querySelector('#rolEd') ?? ''
+const rolEd = document.querySelector('#rolEd')  ?? {value:''}
 const generoEd = document.querySelector('#generoEd')
 const nivelEstudiosEd = document.querySelector('#nivelEstudiosEd')
-const organizacionEd = document.querySelector('#organizacionEd') ?? ''
+const organizacionEd = document.querySelector('#organizacionEd') ?? {value:''}
 const direccionId = document.querySelector('#direccionIdEd')
 const rutGuardado = document.querySelector('#rutGuardadoEd') 
 
@@ -98,18 +98,18 @@ btnEditPartner.addEventListener('click', async()=>{
         return
     }
 
-
+    Swal.fire({
+        icon: data.state ? "success" : "error",
+        title: data.state ? "Exito" : "Opps!",
+        text: data.data,
+    })
+    
     if (data.state) {
         cleanFormEditPartner();
         $("#editarModal").modal('hide')
         const data = await getListPartners();
         renderTable(data)
     }
-    Swal.fire({
-        icon: data.state ? "success" : "error",
-        title: data.state ? "Exito" : "Opps!",
-        text: data.data,
-    })
 
 })
 
@@ -142,13 +142,13 @@ const cleanFormEditPartner = ()=>{
 export const setPartnerForEdit = async (partner, buttonEdit)=>{
    try {
     enableButtonAnimation(buttonEdit, 'Espere...')
+    organizacionEd.value = partner.organizacion
+    rolEd.value = partner.rol
     recordId.value = partner.recordId
     rutGuardado.value = partner.rut
     rutEd.value = $.formatRut(partner.rut)
     correoEd.value = partner.correo
-    rolEd.value = partner.rol
     rolActual.value = partner.rol
-    organizacionEd.value = partner.organizacion
     primerNombreEd.value = partner.nombreUno
     segundoNombreEd.value = partner.nombreDos
     apellidoPaternoEd.value = partner.apellidoUno
@@ -177,6 +177,7 @@ export const setPartnerForEdit = async (partner, buttonEdit)=>{
     disableButtonAnimation(buttonEdit, 'Editar')
    } catch (error) {
     disableButtonAnimation(buttonEdit, 'Editar')
+    console.log(error)
    }
 
     $("#editarModal").modal('show')

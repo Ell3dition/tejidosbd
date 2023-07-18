@@ -30,11 +30,9 @@ document.addEventListener('DOMContentLoaded', initPartnerModule)
 document.addEventListener('click', (event) => {
     if (String(event.target.classList).includes('edit')) {
         const partner = event.target.dataset.partner
-        console.log(partner)
         setPartnerForEdit(JSON.parse(partner) , event.target)
     } else if (String(event.target.classList).includes('delete')) {
         const partnerId = event.target.dataset.id
-        console.log(partnerId)
         // deleteOrganitation(idOrganitation , event.target)
     }
 })
