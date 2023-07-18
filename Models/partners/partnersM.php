@@ -304,5 +304,23 @@ class PartnersM extends conexionBD
 
     }
 
+    static function deletePartnerM($partnerId)
+    {
+        $newState = 'Inactivo';
+        try {
+            $sql = "UPDATE tj_persona SET estado_persona = :estado WHERE rut_persona = :id";
+            $pdo = conexionBD::cBD()->prepare($sql);
+            $pdo->bindParam(":estado", $newState , PDO::PARAM_STR);
+            $pdo->bindParam(":id", $partnerId, PDO::PARAM_INT);
+            if($pdo->execute()){
+                $pdo = null;
+                return ["state" => true, "data" => "Registro eliminada satisfactoriamente"];
+            }
+
+            return ["state" => false, "data" => 'Error, al eliminar registro por favor reporte al soporte'];
+        } catch (PDOException $error) {
+            return ["state" => false, "data" => "Hubo un error al procesar la solicitud si el problema persiste contacte al administrador \ncodigo de error :" . $error->getMessage()];
+        }
+    }
 
 }
