@@ -399,7 +399,7 @@ class PartnersC
 
         $options = ["guardarLogin"=> $guardarEnLogin, "eliminarDelLogin" => $eliminarDelLogin, "cambiarEstadoLogin" => $cambiarEstadoLogin];
 
-         $response = PartnersM::updatePartnerM($dataSave,  $options);
+        $response = PartnersM::updatePartnerM($dataSave,  $options);
          echo json_encode($response);
 
 

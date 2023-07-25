@@ -1,6 +1,6 @@
 <?php
-
 require_once "../../Models/helpers/functionsM.php";
+
 
 class HelpersC
 {
@@ -24,6 +24,7 @@ class HelpersC
         $response = HelpersM::getComunasM($idProvincia);
         echo json_encode($response);
     }
+
 
 }
 

@@ -25,8 +25,25 @@ if (!isset($_SESSION)) {
 
     <?php
 
+  
+
     if (isset($_SESSION["Ingreso"]) && $_SESSION["Ingreso"] == TRUE) {
+       
+       
         if (isset($_GET["url"])) {
+
+
+            if($_SESSION["deafultPass"] == 'Default'){
+          
+                if ($_GET["url"] == "exit") {
+                    include "exit.php";
+    
+                }
+               
+                include "modules/changePwd/changePwd.php";
+                return;
+        
+            }
 
             include "navbar.php";
 
@@ -87,6 +104,7 @@ if (!isset($_SESSION)) {
     <?php
 
     if (isset($_SESSION["Ingreso"]) && $_SESSION["Ingreso"] == TRUE) {
+        
         if (isset($_GET["url"])) {
 
             echo '<script src="Views/js/helpers/validaRut.js" ></script>';

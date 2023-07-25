@@ -3,7 +3,9 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-include "../Models/loginM.php";
+require_once "../Models/loginM.php";
+require_once "./helpers/getPassDefault.php";
+
 
 class LoginC
 {
@@ -34,7 +36,7 @@ class LoginC
         $contrasena = $_POST["clave-Ing"];
 
         $respuesta = LoginM::userLoginM($usuario);
-
+        
         if (empty($respuesta)) {
             $error = array("Estado" => false, "Motivo" => "Usuario no existe");
             echo json_encode($error);
@@ -42,7 +44,7 @@ class LoginC
         }
 
 
-        if (!password_verify($contrasena, $respuesta->clave) && $respuesta->usuario != $usuario) {
+        if (!password_verify($contrasena, $respuesta->clave)) {
 
             $error = array("Estado" => false, "Motivo" => "Usuario o contraseña incorrecta");
             echo json_encode($error);
@@ -55,6 +57,8 @@ class LoginC
             echo json_encode($error);
             return;
         }
+        
+        
 
         $_SESSION["Ingreso"] = TRUE;
         $_SESSION["usuario"] = $respuesta->usuario;
@@ -63,8 +67,12 @@ class LoginC
         $_SESSION["nombreUsuario"] = $respuesta->userName;
         $_SESSION["organizacion"] = $respuesta->organizacion;
         $_SESSION["nombreOrganizacion"] = $respuesta->nombreOrganizacion;
-        // $_SESSION["img"] = $respuesta->IMG_USUARIO;
+      
+        $defaultPass = GetPassDefautl::getPassDefautlFuntion();
+        $_SESSION["deafultPass"] = password_verify($defaultPass, $respuesta->clave) ? "Default" : false;
 
+     
+    
         echo json_encode(array("Estado" => true, "Motivo"=>$respuesta->rol));
         return;
 
