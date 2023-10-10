@@ -1,6 +1,7 @@
 <?php
 
 require_once "../../Models/conexionBD.php";
+require_once "../../Controllers/helpers/getPassDefault.php";
 
 class PartnersM extends conexionBD
 {
@@ -109,7 +110,11 @@ class PartnersM extends conexionBD
             }
 
             if($guardarEnLogin){
-                $pass = password_hash("tejidos123", PASSWORD_DEFAULT);
+                
+                $Pass = new GetPassDefautl();
+                $defaultPass = $Pass->getPassDefautl();
+
+                $pass = password_hash( $defaultPass, PASSWORD_DEFAULT);
                 $estado = "HABILITADO";
                 $sqlInsertLogin = "INSERT INTO tj_login (usuario, clave, estado) VALUES (:usuario, :clave, :estado)";
                 $pdo = $conection->prepare($sqlInsertLogin);
@@ -258,7 +263,10 @@ class PartnersM extends conexionBD
             }
 
             if( $options["guardarLogin"] ){
-                $pass = password_hash("tejidos123", PASSWORD_DEFAULT);
+                $Pass = new GetPassDefautl();
+                $defaultPass = $Pass->getPassDefautl();
+                
+                $pass = password_hash($defaultPass, PASSWORD_DEFAULT);
                 $estado = "HABILITADO";
                 $sqlInsertLogin = "INSERT INTO tj_login (usuario, clave, estado) VALUES (:usuario, :clave, :estado)";
                 $pdo = $conection->prepare($sqlInsertLogin);
